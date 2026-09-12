@@ -19,18 +19,10 @@ body {
   color: #1f2937;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
 .app {
   display: flex;
   min-height: 100vh;
 }
-
-/* =========================
-   SIDEBAR
-========================= */
 
 .sidebar {
   width: 240px;
@@ -76,10 +68,6 @@ body {
   color: white;
 }
 
-/* =========================
-   MAIN
-========================= */
-
 .main {
   flex: 1;
   min-width: 0;
@@ -108,10 +96,6 @@ body {
   padding: 0 20px;
 }
 
-/* =========================
-   TOOLS
-========================= */
-
 .tool {
   display: none;
 }
@@ -139,10 +123,6 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* =========================
-   INPUTS
-========================= */
-
 textarea,
 input[type="text"],
 input[type="url"] {
@@ -164,10 +144,6 @@ textarea:focus,
 input:focus {
   border-color: #2563eb;
 }
-
-/* =========================
-   BUTTONS
-========================= */
 
 .buttons {
   display: flex;
@@ -224,10 +200,6 @@ button {
   display: none;
 }
 
-/* =========================
-   STATS
-========================= */
-
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -252,10 +224,6 @@ button {
   font-size: 25px;
   font-weight: bold;
 }
-
-/* =========================
-   PROGRESS
-========================= */
 
 .progress-container {
   display: none;
@@ -282,10 +250,6 @@ button {
   font-size: 13px;
   color: #6b7280;
 }
-
-/* =========================
-   TABLE
-========================= */
 
 .table-wrapper {
   overflow-x: auto;
@@ -324,10 +288,6 @@ td {
   font-weight: bold;
 }
 
-/* =========================
-   HYPERLINK TABLE
-========================= */
-
 .hyperlink-table input {
   min-width: 180px;
 }
@@ -337,14 +297,10 @@ td {
   white-space: nowrap;
 }
 
-.row-number {
-  width: 45px;
-  text-align: center;
+.hyperlink-table th:first-child,
+.hyperlink-table td:first-child {
+  min-width: 120px;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 800px) {
 
@@ -393,14 +349,9 @@ td {
 </style>
 </head>
 
-
 <body>
 
 <div class="app">
-
-  <!-- =========================
-       SIDEBAR
-  ========================== -->
 
   <aside class="sidebar">
 
@@ -433,10 +384,6 @@ td {
   </aside>
 
 
-  <!-- =========================
-       MAIN
-  ========================== -->
-
   <main class="main">
 
     <div class="header">
@@ -455,19 +402,15 @@ td {
     <div class="container">
 
 
-      <!-- =====================================================
+      <!-- =========================
            DR CHECKER
-      ====================================================== -->
+      ========================== -->
 
-      <section
-        id="drTool"
-        class="tool active">
+      <section id="drTool" class="tool active">
 
         <div class="card">
 
-          <h2>
-            Check Domain Rating
-          </h2>
+          <h2>Check Domain Rating</h2>
 
           <p class="description">
             Enter one domain per line.
@@ -633,11 +576,9 @@ example.net"></textarea>
               <thead>
 
                 <tr>
-
                   <th>#</th>
                   <th>Domain</th>
                   <th>Domain Rating</th>
-
                 </tr>
 
               </thead>
@@ -649,9 +590,7 @@ example.net"></textarea>
                   <td
                     colspan="3"
                     class="empty">
-
                     No results yet.
-
                   </td>
 
                 </tr>
@@ -667,13 +606,11 @@ example.net"></textarea>
       </section>
 
 
-      <!-- =====================================================
+      <!-- =========================
            HTTP CHECKER
-      ====================================================== -->
+      ========================== -->
 
-      <section
-        id="httpTool"
-        class="tool">
+      <section id="httpTool" class="tool">
 
         <div class="card">
 
@@ -682,7 +619,7 @@ example.net"></textarea>
           </h2>
 
           <p class="description">
-            Check HTTP status codes for up to 10,000 URLs.
+            Check HTTP status codes for URLs.
             Enter one URL per line or upload a CSV.
           </p>
 
@@ -692,7 +629,6 @@ example.net"></textarea>
 https://example.org
 https://example.net"></textarea>
 
-
           <div class="buttons">
 
             <button
@@ -700,7 +636,6 @@ https://example.net"></textarea>
               onclick="checkHTTP()">
               Check HTTP Codes
             </button>
-
 
             <label class="file-label">
 
@@ -713,7 +648,6 @@ https://example.net"></textarea>
 
             </label>
 
-
             <button
               class="secondary"
               onclick="clearHTTP()">
@@ -721,7 +655,6 @@ https://example.net"></textarea>
             </button>
 
           </div>
-
 
           <div
             class="progress-container"
@@ -789,16 +722,13 @@ https://example.net"></textarea>
               <thead>
 
                 <tr>
-
                   <th>#</th>
                   <th>URL</th>
                   <th>HTTP Code</th>
                   <th>Status</th>
-
                 </tr>
 
               </thead>
-
 
               <tbody id="httpResults">
 
@@ -807,9 +737,7 @@ https://example.net"></textarea>
                   <td
                     colspan="4"
                     class="empty">
-
                     No results yet.
-
                   </td>
 
                 </tr>
@@ -825,13 +753,11 @@ https://example.net"></textarea>
       </section>
 
 
-      <!-- =====================================================
+      <!-- =========================
            HYPERLINK CHECKER
-      ====================================================== -->
+      ========================== -->
 
-      <section
-        id="hyperlinkTool"
-        class="tool">
+      <section id="hyperlinkTool" class="tool">
 
         <div class="card">
 
@@ -840,13 +766,12 @@ https://example.net"></textarea>
           </h2>
 
           <p class="description">
-            Enter page URLs, anchor texts and the client links
-            you expect those anchors to point to.
+            Enter the page URL, anchor text and expected client link.
+            You can check up to two anchors on the same page.
           </p>
 
 
-          <div
-            class="table-wrapper">
+          <div class="table-wrapper">
 
             <table class="hyperlink-table">
 
@@ -854,12 +779,15 @@ https://example.net"></textarea>
 
                 <tr>
 
-                  <th>#</th>
+                  <th>ID / SR No.</th>
                   <th>Page URL</th>
+
                   <th>Anchor 1</th>
                   <th>Client Link 1</th>
+
                   <th>Anchor 2</th>
                   <th>Client Link 2</th>
+
                   <th>Action</th>
 
                 </tr>
@@ -867,9 +795,7 @@ https://example.net"></textarea>
               </thead>
 
 
-              <tbody id="hyperlinkRows">
-
-              </tbody>
+              <tbody id="hyperlinkRows"></tbody>
 
             </table>
 
@@ -884,11 +810,6 @@ https://example.net"></textarea>
               + Add Row
             </button>
 
-            <button
-              class="secondary"
-              onclick="loadHyperlinkCSV(event)">
-              Upload CSV
-            </button>
 
             <label class="file-label">
 
@@ -901,17 +822,20 @@ https://example.net"></textarea>
 
             </label>
 
+
             <button
               class="primary"
               onclick="checkHyperlinks()">
               Check Links
             </button>
 
+
             <button
               class="secondary"
               onclick="downloadHyperlinkCSV()">
               Download CSV
             </button>
+
 
             <button
               class="danger"
@@ -946,11 +870,14 @@ https://example.net"></textarea>
         </div>
 
 
+        <!-- HYPERLINK RESULTS -->
+
         <div class="card">
 
           <h2>
             Hyperlink Results
           </h2>
+
 
           <div class="table-wrapper">
 
@@ -960,12 +887,14 @@ https://example.net"></textarea>
 
                 <tr>
 
-                  <th>#</th>
+                  <th>ID / SR No.</th>
                   <th>Page URL</th>
-                  <th>Anchor</th>
-                  <th>Expected Link</th>
-                  <th>Found Link</th>
-                  <th>Result</th>
+
+                  <th>Anchor 1</th>
+                  <th>Result 1</th>
+
+                  <th>Anchor 2</th>
+                  <th>Result 2</th>
 
                 </tr>
 
@@ -979,9 +908,7 @@ https://example.net"></textarea>
                   <td
                     colspan="6"
                     class="empty">
-
                     No results yet.
-
                   </td>
 
                 </tr>
@@ -995,7 +922,6 @@ https://example.net"></textarea>
         </div>
 
       </section>
-
 
     </div>
 
@@ -1011,7 +937,16 @@ https://example.net"></textarea>
 ========================================================= */
 
 const BACKEND_URL =
-  "https://script.google.com/macros/s/AKfycbwxgfWKCKcYgDL1iIEhwfls6Cta5giXz0NKmOW6r23zypkR0s4UZKNgNu54Y58XWXP0/exec";
+  "https://script.google.com/macros/s/AKfycbwxgfWKCKCKcYGL1iIEhwfls6Cta5giXz0NKmOW6r23zypkR0s4UZKNgNu54Y58XWXP0/exec";
+
+
+/* =========================================================
+   GLOBALS
+========================================================= */
+
+let drResults = [];
+let httpResults = [];
+let hyperlinkResults = [];
 
 
 /* =========================================================
@@ -1020,19 +955,28 @@ const BACKEND_URL =
 
 function showTool(toolId, button) {
 
-  document.querySelectorAll(".tool").forEach(tool => {
-    tool.classList.remove("active");
-  });
+  document
+    .querySelectorAll(".tool")
+    .forEach(tool => {
+      tool.classList.remove("active");
+    });
 
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.classList.remove("active");
-  });
+  document
+    .getElementById(toolId)
+    .classList.add("active");
 
-  document.getElementById(toolId).classList.add("active");
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
 
   button.classList.add("active");
 
+
   const titles = {
+
     drTool: [
       "DR Checker",
       "Bulk Domain Rating Checker"
@@ -1045,54 +989,34 @@ function showTool(toolId, button) {
 
     hyperlinkTool: [
       "Hyperlink Checker",
-      "Check whether anchors point to the expected URLs"
+      "Check anchors and client links"
     ]
+
   };
+
 
   document.getElementById("pageTitle").textContent =
     titles[toolId][0];
 
   document.getElementById("pageSubtitle").textContent =
     titles[toolId][1];
+
 }
 
 
 /* =========================================================
-   GENERAL HELPERS
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value) {
 
-  return String(value ?? "")
+  return String(value || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-}
 
-
-function downloadFile(content, filename) {
-
-  const blob = new Blob(
-    [content],
-    { type: "text/csv;charset=utf-8;" }
-  );
-
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = filename;
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-  URL.revokeObjectURL(url);
 }
 
 
@@ -1100,255 +1024,216 @@ function downloadFile(content, filename) {
    DR CHECKER
 ========================================================= */
 
-let results = [];
-
-
-function cleanDomain(domain) {
-
-  domain = String(domain || "").trim();
-
-  if (!domain) {
-    return "";
-  }
-
-  domain = domain
-    .replace(/^https?:\/\//i, "")
-    .replace(/^www\./i, "");
-
-  domain = domain.split("/")[0];
-  domain = domain.split("?")[0];
-  domain = domain.split("#")[0];
-
-  return domain.trim().toLowerCase();
-}
-
-
-function getDomains() {
-
-  const text =
-    document.getElementById("domains").value;
-
-  const domains =
-    text
-      .split(/\r?\n/)
-      .map(cleanDomain)
-      .filter(Boolean);
-
-  return [...new Set(domains)];
-}
-
-
 async function checkDR() {
 
-  const domains = getDomains();
+  const input =
+    document.getElementById("domains").value;
+
+
+  const domains =
+    input
+      .split(/\r?\n/)
+      .map(x => x.trim())
+      .filter(Boolean);
+
 
   if (!domains.length) {
 
     alert("Please enter at least one domain.");
 
     return;
+
   }
 
 
-  results = [];
+  const progress =
+    document.getElementById(
+      "drProgressContainer"
+    );
 
-  updateDRStats();
+  const fill =
+    document.getElementById(
+      "drProgress"
+    );
 
-  const progressContainer =
-    document.getElementById("drProgressContainer");
+  const text =
+    document.getElementById(
+      "drProgressText"
+    );
 
-  progressContainer.style.display = "block";
 
-  setDRProgress(10, "Checking domains...");
+  progress.style.display = "block";
+
+  fill.style.width = "10%";
+
+  text.textContent =
+    "Checking Domain Ratings...";
+
+
+  document.getElementById(
+    "totalCount"
+  ).textContent = domains.length;
 
 
   try {
 
-    const response = await fetch(
-      BACKEND_URL,
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        BACKEND_URL,
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
 
-        body: JSON.stringify({
-          domains: domains
-        })
-      }
-    );
+          body: JSON.stringify({
+            domains: domains
+          })
+
+        }
+      );
 
 
     const data =
       await response.json();
 
 
-    if (!data.results) {
+    if (!data.success) {
 
       throw new Error(
         data.error ||
-        "Invalid server response."
+        "DR Checker failed."
       );
+
     }
 
 
-    results = data.results;
+    drResults =
+      data.results || [];
+
 
     renderDRResults();
 
-    updateDRStats();
 
-    setDRProgress(
-      100,
-      `Completed ${results.length} domains.`
-    );
+    fill.style.width = "100%";
 
-  }
+    text.textContent =
+      `Completed ${domains.length} domain(s).`;
 
-  catch (error) {
+
+  } catch (error) {
 
     console.error(error);
 
-    setDRProgress(0, "Error");
+    text.textContent =
+      "Error: " + error.message;
 
     alert(
       "DR Checker error:\n\n" +
       error.message
     );
+
   }
+
 }
 
 
 function renderDRResults() {
 
-  const body =
-    document.getElementById("resultsBody");
+  const tbody =
+    document.getElementById(
+      "resultsBody"
+    );
 
-  body.innerHTML = "";
+
+  tbody.innerHTML = "";
 
 
-  if (!results.length) {
+  if (!drResults.length) {
 
-    body.innerHTML =
-      '<tr><td colspan="3" class="empty">No results.</td></tr>';
+    tbody.innerHTML =
+      '<tr><td colspan="3" class="empty">No results yet.</td></tr>';
 
     return;
+
   }
 
 
-  results.forEach((item, index) => {
-
-    const row =
-      document.createElement("tr");
+  let totalDR = 0;
+  let validDR = 0;
 
 
-    const dr =
-      item.dr !== undefined &&
-      item.dr !== null &&
-      item.dr !== ""
-        ? item.dr
-        : "Error";
+  drResults.forEach(
+    (item, index) => {
+
+      const dr =
+        item.dr;
 
 
-    const drClass =
-      dr === "Error"
-        ? "error"
-        : "dr";
+      if (
+        dr !== null &&
+        dr !== undefined &&
+        !isNaN(dr)
+      ) {
+
+        totalDR += Number(dr);
+        validDR++;
+
+      }
 
 
-    row.innerHTML = `
-
-      <td>${index + 1}</td>
-
-      <td>
-        ${escapeHTML(item.domain || "")}
-      </td>
-
-      <td class="${drClass}">
-        ${escapeHTML(String(dr))}
-      </td>
-
-    `;
+      const row =
+        document.createElement("tr");
 
 
-    body.appendChild(row);
+      row.innerHTML = `
 
-  });
-}
+        <td>
+          ${index + 1}
+        </td>
 
+        <td>
+          ${escapeHTML(item.domain || "")}
+        </td>
 
-function updateDRStats() {
+        <td class="dr">
+          ${dr === null || dr === undefined ? "N/A" : escapeHTML(dr)}
+        </td>
 
-  const total =
-    results.length;
-
-
-  const completed =
-    results.filter(
-      r =>
-        r.dr !== undefined &&
-        r.dr !== null &&
-        r.dr !== "" &&
-        r.dr !== "Error"
-    ).length;
+      `;
 
 
-  const errors =
-    total - completed;
+      tbody.appendChild(row);
 
-
-  const values =
-    results
-      .map(r => Number(r.dr))
-      .filter(n => !isNaN(n));
-
-
-  const average =
-    values.length
-      ? (
-          values.reduce(
-            (a, b) => a + b,
-            0
-          ) / values.length
-        ).toFixed(1)
-      : 0;
-
-
-  document.getElementById(
-    "totalCount"
-  ).textContent = total;
+    }
+  );
 
 
   document.getElementById(
     "completedCount"
-  ).textContent = completed;
+  ).textContent =
+    drResults.length;
 
 
   document.getElementById(
     "errorCount"
-  ).textContent = errors;
+  ).textContent =
+    drResults.filter(
+      x =>
+        x.dr === null ||
+        x.dr === undefined
+    ).length;
 
 
   document.getElementById(
     "averageDR"
-  ).textContent = average;
-}
-
-
-function setDRProgress(percent, text) {
-
-  document.getElementById(
-    "drProgress"
-  ).style.width =
-    percent + "%";
-
-
-  document.getElementById(
-    "drProgressText"
   ).textContent =
-    text;
+    validDR
+      ? (totalDR / validDR).toFixed(1)
+      : "0";
+
 }
 
 
@@ -1357,94 +1242,101 @@ function clearDomains() {
   document.getElementById(
     "domains"
   ).value = "";
+
 }
 
 
 function clearResults() {
 
-  results = [];
+  drResults = [];
 
-  renderDRResults();
-
-  updateDRStats();
 
   document.getElementById(
-    "drProgressContainer"
-  ).style.display = "none";
+    "resultsBody"
+  ).innerHTML =
+    '<tr><td colspan="3" class="empty">No results yet.</td></tr>';
+
+
+  document.getElementById(
+    "totalCount"
+  ).textContent = "0";
+
+  document.getElementById(
+    "completedCount"
+  ).textContent = "0";
+
+  document.getElementById(
+    "errorCount"
+  ).textContent = "0";
+
+  document.getElementById(
+    "averageDR"
+  ).textContent = "0";
+
 }
 
 
 function copyResults() {
 
-  if (!results.length) {
+  if (!drResults.length) {
 
-    alert(
-      "There are no results to copy."
-    );
+    alert("There are no results to copy.");
 
     return;
+
   }
 
 
   const text =
-    "Domain\tDomain Rating\n" +
-    results
+    drResults
       .map(
-        r =>
-          `${r.domain}\t${r.dr}`
+        (item, index) =>
+          `${index + 1}\t${item.domain || ""}\t${item.dr ?? "N/A"}`
       )
       .join("\n");
 
 
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
+  navigator.clipboard.writeText(text);
 
-      alert("Results copied.");
+  alert("Results copied.");
 
-    })
-    .catch(() => {
-
-      alert(
-        "Unable to copy results."
-      );
-
-    });
 }
 
 
 function downloadDRCSV() {
 
-  if (!results.length) {
+  if (!drResults.length) {
 
-    alert(
-      "There are no results to download."
-    );
+    alert("There are no results to download.");
 
     return;
+
   }
 
 
   let csv =
-    "Domain,Domain Rating\n";
+    "ID,Domain,Domain Rating\n";
 
 
-  results.forEach(item => {
+  drResults.forEach(
+    (item, index) => {
 
-    csv +=
-      `"${String(
-        item.domain || ""
-      ).replace(/"/g, '""')}","${String(
-        item.dr || ""
-      ).replace(/"/g, '""')}"\n`;
+      csv +=
+        `"${index + 1}","${String(
+          item.domain || ""
+        ).replace(/"/g, '""')}","${String(
+          item.dr ?? ""
+        ).replace(/"/g, '""')}"\n`;
 
-  });
+    }
+  );
 
 
   downloadFile(
     csv,
-    "ahrefs-dr-results.csv"
+    "dr-results.csv"
   );
+
 }
 
 
@@ -1452,24 +1344,19 @@ function downloadDRCSV() {
    HTTP CHECKER
 ========================================================= */
 
-let httpData = [];
-
-
-function getHTTPUrls() {
-
-  return document
-    .getElementById("httpInput")
-    .value
-    .split(/\r?\n/)
-    .map(x => x.trim())
-    .filter(Boolean);
-}
-
-
 async function checkHTTP() {
 
+  const input =
+    document.getElementById(
+      "httpInput"
+    ).value;
+
+
   const urls =
-    getHTTPUrls();
+    input
+      .split(/\r?\n/)
+      .map(x => x.trim())
+      .filter(Boolean);
 
 
   if (!urls.length) {
@@ -1479,20 +1366,8 @@ async function checkHTTP() {
     );
 
     return;
+
   }
-
-
-  if (urls.length > 10000) {
-
-    alert(
-      "Maximum 10,000 URLs per query."
-    );
-
-    return;
-  }
-
-
-  httpData = [];
 
 
   const progress =
@@ -1514,34 +1389,30 @@ async function checkHTTP() {
   progress.style.display =
     "block";
 
-
-  fill.style.width = "0%";
-
+  fill.style.width =
+    "10%";
 
   text.textContent =
-    `Starting ${urls.length} URLs...`;
-
-
-  /*
-    We send the URLs in small batches.
-    This keeps a 10,000 URL query manageable.
-  */
-
-  const batchSize = 25;
+    "Checking HTTP codes...";
 
 
   try {
 
+    const batchSize = 25;
+
+    httpResults = [];
+
+
     for (
-      let start = 0;
-      start < urls.length;
-      start += batchSize
+      let i = 0;
+      i < urls.length;
+      i += batchSize
     ) {
 
       const batch =
         urls.slice(
-          start,
-          start + batchSize
+          i,
+          i + batchSize
         );
 
 
@@ -1560,6 +1431,7 @@ async function checkHTTP() {
               action: "http-check",
               urls: batch
             })
+
           }
         );
 
@@ -1572,67 +1444,61 @@ async function checkHTTP() {
 
         throw new Error(
           data.error ||
-          "HTTP checker backend error."
+          "HTTP checker failed."
         );
-      }
-
-
-      if (Array.isArray(data.results)) {
-
-        httpData =
-          httpData.concat(
-            data.results
-          );
 
       }
 
 
-      const completed =
-        Math.min(
-          start + batch.length,
-          urls.length
-        );
+      httpResults.push(
+        ...(data.results || [])
+      );
 
 
       const percent =
-        Math.round(
-          (completed / urls.length) *
-          100
+        Math.min(
+          100,
+          Math.round(
+            ((i + batch.length) /
+              urls.length) *
+              100
+          )
         );
 
 
       fill.style.width =
         percent + "%";
 
-
       text.textContent =
-        `Completed ${completed} of ${urls.length} URLs (${percent}%)`;
+        `Checked ${i + batch.length} of ${urls.length} URLs...`;
 
-
-      renderHTTPResults();
     }
 
 
+    renderHTTPResults();
+
+
+    fill.style.width =
+      "100%";
+
     text.textContent =
-      `Completed ${httpData.length} of ${urls.length} URLs.`;
+      `Completed ${urls.length} URL(s).`;
 
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(error);
 
     text.textContent =
-      "Error: " +
-      error.message;
-
+      "Error: " + error.message;
 
     alert(
       "HTTP Checker error:\n\n" +
       error.message
     );
+
   }
+
 }
 
 
@@ -1647,16 +1513,17 @@ function renderHTTPResults() {
   tbody.innerHTML = "";
 
 
-  if (!httpData.length) {
+  if (!httpResults.length) {
 
     tbody.innerHTML =
       '<tr><td colspan="4" class="empty">No results yet.</td></tr>';
 
     return;
+
   }
 
 
-  httpData.forEach(
+  httpResults.forEach(
     (item, index) => {
 
       const row =
@@ -1670,23 +1537,15 @@ function renderHTTPResults() {
         </td>
 
         <td>
-          ${escapeHTML(
-            item.url || ""
-          )}
+          ${escapeHTML(item.url || "")}
         </td>
 
         <td>
-          ${escapeHTML(
-            String(
-              item.code ?? "-"
-            )
-          )}
+          ${escapeHTML(item.code || "")}
         </td>
 
         <td>
-          ${escapeHTML(
-            item.status || ""
-          )}
+          ${escapeHTML(item.status || "")}
         </td>
 
       `;
@@ -1696,6 +1555,7 @@ function renderHTTPResults() {
 
     }
   );
+
 }
 
 
@@ -1705,9 +1565,7 @@ function loadHTTPCSV(event) {
     event.target.files[0];
 
 
-  if (!file) {
-    return;
-  }
+  if (!file) return;
 
 
   const reader =
@@ -1717,48 +1575,37 @@ function loadHTTPCSV(event) {
   reader.onload =
     function(e) {
 
-      const text =
-        e.target.result;
-
-
       const lines =
-        text
+        e.target.result
           .split(/\r?\n/)
-          .map(
-            line =>
-              line.trim()
-          )
+          .map(x => x.trim())
           .filter(Boolean);
 
 
-      /*
-        Remove the first line if it looks
-        like a CSV header.
-      */
-
-      if (
-        lines.length &&
-        /url/i.test(lines[0])
-      ) {
-
-        lines.shift();
-
-      }
+      const urls = [];
 
 
-      const urls =
-        lines
-          .map(line => {
+      lines.forEach(
+        (line, index) => {
 
-            const firstColumn =
-              line.split(",")[0];
+          if (
+            index === 0 &&
+            /url/i.test(line)
+          ) {
+            return;
+          }
 
-            return firstColumn
-              .replace(/^["']|["']$/g, "")
-              .trim();
 
-          })
-          .filter(Boolean);
+          const columns =
+            parseCSVLine(line);
+
+
+          if (columns[0]) {
+            urls.push(columns[0]);
+          }
+
+        }
+      );
 
 
       document.getElementById(
@@ -1774,43 +1621,6 @@ function loadHTTPCSV(event) {
 }
 
 
-function downloadHTTPCSV() {
-
-  if (!httpData.length) {
-
-    alert(
-      "There are no HTTP results to download."
-    );
-
-    return;
-  }
-
-
-  let csv =
-    "URL,HTTP Code,Status\n";
-
-
-  httpData.forEach(item => {
-
-    csv +=
-      `"${String(
-        item.url || ""
-      ).replace(/"/g, '""')}","${String(
-        item.code ?? ""
-      ).replace(/"/g, '""')}","${String(
-        item.status || ""
-      ).replace(/"/g, '""')}"\n`;
-
-  });
-
-
-  downloadFile(
-    csv,
-    "http-results.csv"
-  );
-}
-
-
 function clearHTTP() {
 
   document.getElementById(
@@ -1822,13 +1632,55 @@ function clearHTTP() {
 
 function clearHTTPResults() {
 
-  httpData = [];
+  httpResults = [];
 
-  renderHTTPResults();
 
   document.getElementById(
-    "httpProgress"
-  ).style.display = "none";
+    "httpResults"
+  ).innerHTML =
+    '<tr><td colspan="4" class="empty">No results yet.</td></tr>';
+
+}
+
+
+function downloadHTTPCSV() {
+
+  if (!httpResults.length) {
+
+    alert(
+      "There are no HTTP results to download."
+    );
+
+    return;
+
+  }
+
+
+  let csv =
+    "ID,URL,HTTP Code,Status\n";
+
+
+  httpResults.forEach(
+    (item, index) => {
+
+      csv +=
+        `"${index + 1}","${String(
+          item.url || ""
+        ).replace(/"/g, '""')}","${String(
+          item.code || ""
+        ).replace(/"/g, '""')}","${String(
+          item.status || ""
+        ).replace(/"/g, '""')}"\n`;
+
+    }
+  );
+
+
+  downloadFile(
+    csv,
+    "http-results.csv"
+  );
+
 }
 
 
@@ -1836,10 +1688,8 @@ function clearHTTPResults() {
    HYPERLINK CHECKER
 ========================================================= */
 
-let hyperlinkResults = [];
-
-
 function createHyperlinkRow(
+  srNo = "",
   pageUrl = "",
   anchor1 = "",
   clientLink1 = "",
@@ -1859,8 +1709,12 @@ function createHyperlinkRow(
 
   row.innerHTML = `
 
-    <td class="row-number">
-      ${tbody.children.length + 1}
+    <td>
+      <input
+        type="text"
+        class="sr-no"
+        value="${escapeHTML(srNo)}"
+        placeholder="ID / SR No.">
     </td>
 
     <td>
@@ -1932,29 +1786,6 @@ function removeHyperlinkRow(button) {
     .closest("tr")
     .remove();
 
-
-  renumberHyperlinkRows();
-}
-
-
-function renumberHyperlinkRows() {
-
-  const rows =
-    document.querySelectorAll(
-      "#hyperlinkRows tr"
-    );
-
-
-  rows.forEach(
-    (row, index) => {
-
-      row.querySelector(
-        ".row-number"
-      ).textContent =
-        index + 1;
-
-    }
-  );
 }
 
 
@@ -1967,41 +1798,57 @@ function getHyperlinkRows() {
 
 
   return Array.from(rows)
-    .map(row => ({
+    .map(row => {
 
-      pageUrl:
-        row.querySelector(
-          ".page-url"
-        ).value.trim(),
+      return {
 
-      anchor1:
-        row.querySelector(
-          ".anchor-1"
-        ).value.trim(),
+        srNo:
+          row.querySelector(
+            ".sr-no"
+          ).value.trim(),
 
-      clientLink1:
-        row.querySelector(
-          ".client-link-1"
-        ).value.trim(),
+        pageUrl:
+          row.querySelector(
+            ".page-url"
+          ).value.trim(),
 
-      anchor2:
-        row.querySelector(
-          ".anchor-2"
-        ).value.trim(),
+        anchor1:
+          row.querySelector(
+            ".anchor-1"
+          ).value.trim(),
 
-      clientLink2:
-        row.querySelector(
-          ".client-link-2"
-        ).value.trim()
+        clientLink1:
+          row.querySelector(
+            ".client-link-1"
+          ).value.trim(),
 
-    }))
+        anchor2:
+          row.querySelector(
+            ".anchor-2"
+          ).value.trim(),
+
+        clientLink2:
+          row.querySelector(
+            ".client-link-2"
+          ).value.trim()
+
+      };
+
+    })
     .filter(row => row.pageUrl);
+
 }
 
 
+/* =========================================================
+   HYPERLINK CHECK
+========================================================= */
+
 async function checkHyperlinks() {
 
-  const rows = getHyperlinkRows();
+  const rows =
+    getHyperlinkRows();
+
 
   if (!rows.length) {
 
@@ -2010,41 +1857,61 @@ async function checkHyperlinks() {
     );
 
     return;
+
   }
 
+
   const progress =
-    document.getElementById("hyperlinkProgress");
+    document.getElementById(
+      "hyperlinkProgress"
+    );
 
   const fill =
-    document.getElementById("hyperlinkProgressFill");
+    document.getElementById(
+      "hyperlinkProgressFill"
+    );
 
   const text =
-    document.getElementById("hyperlinkProgressText");
+    document.getElementById(
+      "hyperlinkProgressText"
+    );
 
-  progress.style.display = "block";
-  fill.style.width = "10%";
-  text.textContent = "Checking hyperlinks...";
+
+  progress.style.display =
+    "block";
+
+  fill.style.width =
+    "10%";
+
+  text.textContent =
+    "Checking hyperlinks...";
+
 
   try {
 
-    const response = await fetch(
-      BACKEND_URL,
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        BACKEND_URL,
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
 
-        body: JSON.stringify({
-          action: "hyperlink-check",
-          rows: rows
-        })
-      }
-    );
+          body: JSON.stringify({
+            action: "hyperlink-check",
+            rows: rows
+          })
 
-    const data = await response.json();
+        }
+      );
+
+
+    const data =
+      await response.json();
+
 
     if (!data.success) {
 
@@ -2055,15 +1922,112 @@ async function checkHyperlinks() {
 
     }
 
-    hyperlinkResults =
+
+    /*
+      IMPORTANT:
+
+      Your current backend returns one result
+      for each anchor.
+
+      This frontend combines those results
+      back into ONE row.
+
+      Therefore you do NOT need to change
+      your Apps Script for this particular
+      layout change.
+    */
+
+    const backendResults =
       data.results || [];
+
+
+    hyperlinkResults = [];
+
+
+    let resultIndex = 0;
+
+
+    rows.forEach(inputRow => {
+
+      const output = {
+
+        srNo: inputRow.srNo,
+
+        pageUrl: inputRow.pageUrl,
+
+        anchor1: inputRow.anchor1,
+
+        result1: "",
+
+        anchor2: inputRow.anchor2,
+
+        result2: ""
+
+      };
+
+
+      /*
+        Anchor 1
+      */
+
+      if (inputRow.anchor1) {
+
+        const backendItem =
+          backendResults[resultIndex];
+
+
+        if (backendItem) {
+
+          output.result1 =
+            convertHyperlinkResult(
+              backendItem.result
+            );
+
+          resultIndex++;
+
+        }
+
+      }
+
+
+      /*
+        Anchor 2
+      */
+
+      if (inputRow.anchor2) {
+
+        const backendItem =
+          backendResults[resultIndex];
+
+
+        if (backendItem) {
+
+          output.result2 =
+            convertHyperlinkResult(
+              backendItem.result
+            );
+
+          resultIndex++;
+
+        }
+
+      }
+
+
+      hyperlinkResults.push(output);
+
+    });
+
 
     renderHyperlinkResults();
 
-    fill.style.width = "100%";
+
+    fill.style.width =
+      "100%";
 
     text.textContent =
       `Completed ${rows.length} page(s).`;
+
 
   } catch (error) {
 
@@ -2076,57 +2040,139 @@ async function checkHyperlinks() {
       "Hyperlink Checker error:\n\n" +
       error.message
     );
+
   }
+
 }
 
-  function renderHyperlinkResults() {
+
+/* =========================================================
+   CONVERT BACKEND RESULT
+========================================================= */
+
+function convertHyperlinkResult(result) {
+
+  const value =
+    String(result || "")
+      .toUpperCase();
+
+
+  if (value === "MATCH") {
+    return "MATCHED";
+  }
+
+
+  if (value === "MATCHED") {
+    return "MATCHED";
+  }
+
+
+  if (
+    value === "WRONG LINK" ||
+    value === "NOT FOUND" ||
+    value === "NOT MATCHED"
+  ) {
+    return "NOT MATCHED";
+  }
+
+
+  if (value.startsWith("ERROR")) {
+    return "ERROR";
+  }
+
+
+  return value || "NOT MATCHED";
+
+}
+
+
+/* =========================================================
+   RENDER HYPERLINK RESULTS
+========================================================= */
+
+function renderHyperlinkResults() {
 
   const tbody =
-    document.getElementById("hyperlinkResults");
+    document.getElementById(
+      "hyperlinkResults"
+    );
+
 
   tbody.innerHTML = "";
+
 
   if (!hyperlinkResults.length) {
 
     tbody.innerHTML =
-      '<tr><td colspan="6" class="empty">No results found.</td></tr>';
+      '<tr>' +
+      '<td colspan="6" class="empty">' +
+      'No results found.' +
+      '</td>' +
+      '</tr>';
 
     return;
+
   }
 
-  hyperlinkResults.forEach((item, index) => {
+
+  hyperlinkResults.forEach(item => {
 
     const row =
       document.createElement("tr");
 
+
     row.innerHTML = `
-      <td>${index + 1}</td>
 
       <td>
-        ${escapeHTML(item.pageUrl || "")}
+        ${escapeHTML(
+          item.srNo || ""
+        )}
       </td>
 
       <td>
-        ${escapeHTML(item.anchor || "")}
+        ${escapeHTML(
+          item.pageUrl || ""
+        )}
       </td>
 
       <td>
-        ${escapeHTML(item.expectedLink || "")}
+        ${escapeHTML(
+          item.anchor1 || ""
+        )}
       </td>
 
       <td>
-        ${escapeHTML(item.foundLink || "")}
+        ${escapeHTML(
+          item.result1 || ""
+        )}
       </td>
 
       <td>
-        ${escapeHTML(item.result || "")}
+        ${escapeHTML(
+          item.anchor2 || ""
+        )}
       </td>
+
+      <td>
+        ${escapeHTML(
+          item.result2 || ""
+        )}
+      </td>
+
     `;
+
 
     tbody.appendChild(row);
 
   });
+
 }
+
+
+/* =========================================================
+   HYPERLINK CSV UPLOAD
+========================================================= */
+
 function loadHyperlinkCSV(event) {
 
   const file =
@@ -2169,22 +2215,12 @@ function loadHyperlinkCSV(event) {
       tbody.innerHTML = "";
 
 
-      /*
-        Expected CSV columns:
-
-        Page URL,
-        Anchor 1,
-        Client Link 1,
-        Anchor 2,
-        Client Link 2
-      */
-
       lines.forEach(
         (line, index) => {
 
           if (
             index === 0 &&
-            /page\s*url/i.test(line)
+            /id\s*\/?\s*sr|page\s*url/i.test(line)
           ) {
             return;
           }
@@ -2195,11 +2231,19 @@ function loadHyperlinkCSV(event) {
 
 
           createHyperlinkRow(
+
             columns[0] || "",
+
             columns[1] || "",
+
             columns[2] || "",
+
             columns[3] || "",
-            columns[4] || ""
+
+            columns[4] || "",
+
+            columns[5] || ""
+
           );
 
         }
@@ -2212,6 +2256,10 @@ function loadHyperlinkCSV(event) {
 
 }
 
+
+/* =========================================================
+   CSV PARSER
+========================================================= */
 
 function parseCSVLine(line) {
 
@@ -2243,7 +2291,9 @@ function parseCSVLine(line) {
 
     }
 
-    else if (char === '"') {
+    else if (
+      char === '"'
+    ) {
 
       insideQuotes =
         !insideQuotes;
@@ -2282,6 +2332,10 @@ function parseCSVLine(line) {
 }
 
 
+/* =========================================================
+   DOWNLOAD HYPERLINK INPUT CSV
+========================================================= */
+
 function downloadHyperlinkCSV() {
 
   const rows =
@@ -2295,17 +2349,30 @@ function downloadHyperlinkCSV() {
     );
 
     return;
+
   }
 
 
   let csv =
-    "Page URL,Anchor 1,Client Link 1,Anchor 2,Client Link 2\n";
+    "ID / SR No.,Page URL,Anchor 1,Client Link 1,Anchor 2,Client Link 2\n";
 
 
   rows.forEach(row => {
 
     csv +=
-      `"${String(row.pageUrl).replace(/"/g, '""')}","${String(row.anchor1).replace(/"/g, '""')}","${String(row.clientLink1).replace(/"/g, '""')}","${String(row.anchor2).replace(/"/g, '""')}","${String(row.clientLink2).replace(/"/g, '""')}"\n`;
+      `"${String(
+        row.srNo || ""
+      ).replace(/"/g, '""')}","${String(
+        row.pageUrl || ""
+      ).replace(/"/g, '""')}","${String(
+        row.anchor1 || ""
+      ).replace(/"/g, '""')}","${String(
+        row.clientLink1 || ""
+      ).replace(/"/g, '""')}","${String(
+        row.anchor2 || ""
+      ).replace(/"/g, '""')}","${String(
+        row.clientLink2 || ""
+      ).replace(/"/g, '""')}"\n`;
 
   });
 
@@ -2314,8 +2381,13 @@ function downloadHyperlinkCSV() {
     csv,
     "hyperlink-checker-input.csv"
   );
+
 }
 
+
+/* =========================================================
+   CLEAR HYPERLINKS
+========================================================= */
 
 function clearHyperlinkRows() {
 
@@ -2323,9 +2395,64 @@ function clearHyperlinkRows() {
     "hyperlinkRows"
   ).innerHTML = "";
 
+
+  document.getElementById(
+    "hyperlinkResults"
+  ).innerHTML =
+    '<tr>' +
+    '<td colspan="6" class="empty">' +
+    'No results yet.' +
+    '</td>' +
+    '</tr>';
+
+
   hyperlinkResults = [];
 
+
   addHyperlinkRow();
+
+}
+
+
+/* =========================================================
+   DOWNLOAD FILE
+========================================================= */
+
+function downloadFile(
+  content,
+  filename
+) {
+
+  const blob =
+    new Blob(
+      [content],
+      {
+        type:
+          "text/csv;charset=utf-8;"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const link =
+    document.createElement("a");
+
+
+  link.href = url;
+
+  link.download = filename;
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+
 }
 
 
