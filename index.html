@@ -2078,6 +2078,55 @@ async function checkHyperlinks() {
     );
   }
 }
+
+  function renderHyperlinkResults() {
+
+  const tbody =
+    document.getElementById("hyperlinkResults");
+
+  tbody.innerHTML = "";
+
+  if (!hyperlinkResults.length) {
+
+    tbody.innerHTML =
+      '<tr><td colspan="6" class="empty">No results found.</td></tr>';
+
+    return;
+  }
+
+  hyperlinkResults.forEach((item, index) => {
+
+    const row =
+      document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+
+      <td>
+        ${escapeHTML(item.pageUrl || "")}
+      </td>
+
+      <td>
+        ${escapeHTML(item.anchor || "")}
+      </td>
+
+      <td>
+        ${escapeHTML(item.expectedLink || "")}
+      </td>
+
+      <td>
+        ${escapeHTML(item.foundLink || "")}
+      </td>
+
+      <td>
+        ${escapeHTML(item.result || "")}
+      </td>
+    `;
+
+    tbody.appendChild(row);
+
+  });
+}
 function loadHyperlinkCSV(event) {
 
   const file =
