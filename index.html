@@ -1844,11 +1844,11 @@ function getHyperlinkRows() {
    HYPERLINK CHECK
 ========================================================= */
 
+```javascript
 async function checkHyperlinks() {
 
   const rows =
     getHyperlinkRows();
-
 
   if (!rows.length) {
 
@@ -1859,7 +1859,6 @@ async function checkHyperlinks() {
     return;
 
   }
-
 
   const progress =
     document.getElementById(
@@ -1876,7 +1875,6 @@ async function checkHyperlinks() {
       "hyperlinkProgressText"
     );
 
-
   progress.style.display =
     "block";
 
@@ -1885,7 +1883,6 @@ async function checkHyperlinks() {
 
   text.textContent =
     "Checking hyperlinks...";
-
 
   try {
 
@@ -1908,10 +1905,8 @@ async function checkHyperlinks() {
         }
       );
 
-
     const data =
       await response.json();
-
 
     if (!data.success) {
 
@@ -1922,112 +1917,59 @@ async function checkHyperlinks() {
 
     }
 
-
     /*
-      IMPORTANT:
+      CURRENT APPS SCRIPT RETURNS:
 
-      Your current backend returns one result
-      for each anchor.
+      {
+        srNo,
+        pageUrl,
+        anchor1,
+        result1,
+        anchor2,
+        result2
+      }
 
-      This frontend combines those results
-      back into ONE row.
-
-      Therefore you do NOT need to change
-      your Apps Script for this particular
-      layout change.
+      Therefore we use those fields directly.
     */
 
-    const backendResults =
-      data.results || [];
+    hyperlinkResults =
+      (data.results || []).map(item => {
 
+        return {
 
-    hyperlinkResults = [];
+          srNo:
+            item.srNo || "",
 
+          pageUrl:
+            item.pageUrl || "",
 
-    let resultIndex = 0;
+          anchor1:
+            item.anchor1 || "",
 
-
-    rows.forEach(inputRow => {
-
-      const output = {
-
-        srNo: inputRow.srNo,
-
-        pageUrl: inputRow.pageUrl,
-
-        anchor1: inputRow.anchor1,
-
-        result1: "",
-
-        anchor2: inputRow.anchor2,
-
-        result2: ""
-
-      };
-
-
-      /*
-        Anchor 1
-      */
-
-      if (inputRow.anchor1) {
-
-        const backendItem =
-          backendResults[resultIndex];
-
-
-        if (backendItem) {
-
-          output.result1 =
+          result1:
             convertHyperlinkResult(
-              backendItem.result
-            );
+              item.result1
+            ),
 
-          resultIndex++;
+          anchor2:
+            item.anchor2 || "",
 
-        }
-
-      }
-
-
-      /*
-        Anchor 2
-      */
-
-      if (inputRow.anchor2) {
-
-        const backendItem =
-          backendResults[resultIndex];
-
-
-        if (backendItem) {
-
-          output.result2 =
+          result2:
             convertHyperlinkResult(
-              backendItem.result
-            );
+              item.result2
+            )
 
-          resultIndex++;
+        };
 
-        }
-
-      }
-
-
-      hyperlinkResults.push(output);
-
-    });
-
+      });
 
     renderHyperlinkResults();
-
 
     fill.style.width =
       "100%";
 
     text.textContent =
-      `Completed ${rows.length} page(s).`;
-
+      `Completed ${hyperlinkResults.length} page(s).`;
 
   } catch (error) {
 
@@ -2044,7 +1986,7 @@ async function checkHyperlinks() {
   }
 
 }
-
+```
 
 /* =========================================================
    CONVERT BACKEND RESULT
