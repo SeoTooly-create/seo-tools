@@ -2001,9 +2001,7 @@ function getHyperlinkRows() {
 
 async function checkHyperlinks() {
 
-  const rows =
-    getHyperlinkRows();
-
+  const rows = getHyperlinkRows();
 
   if (!rows.length) {
 
@@ -2014,19 +2012,72 @@ async function checkHyperlinks() {
     return;
   }
 
+  const progress =
+    document.getElementById("hyperlinkProgress");
 
-  /*
-    Backend for the hyperlink checker
-    will be added separately.
-  */
+  const fill =
+    document.getElementById("hyperlinkProgressFill");
 
-  alert(
-    "Hyperlink Checker interface is ready.\n\n" +
-    "The backend checker will be connected next."
-  );
+  const text =
+    document.getElementById("hyperlinkProgressText");
+
+  progress.style.display = "block";
+  fill.style.width = "10%";
+  text.textContent = "Checking hyperlinks...";
+
+  try {
+
+    const response = await fetch(
+      BACKEND_URL,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+          action: "hyperlink-check",
+          rows: rows
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!data.success) {
+
+      throw new Error(
+        data.error ||
+        "Unknown backend error."
+      );
+
+    }
+
+    hyperlinkResults =
+      data.results || [];
+
+    renderHyperlinkResults();
+
+    fill.style.width = "100%";
+
+    text.textContent =
+      `Completed ${rows.length} page(s).`;
+
+  } catch (error) {
+
+    console.error(error);
+
+    text.textContent =
+      "Error: " + error.message;
+
+    alert(
+      "Hyperlink Checker error:\n\n" +
+      error.message
+    );
+  }
 }
-
-
 function loadHyperlinkCSV(event) {
 
   const file =
