@@ -3,129 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SEO Tooly</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #f5f7fb;
-  color: #172033;
+  color: #1f2937;
 }
+
+/* =========================
+   LAYOUT
+========================= */
 
 .app {
   display: flex;
   min-height: 100vh;
 }
 
-/* Sidebar */
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar {
-  width: 250px;
+  width: 240px;
   background: #111827;
   color: white;
-  padding: 24px 14px;
+  padding: 22px 14px;
   flex-shrink: 0;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: 700;
-  padding: 0 12px 28px;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 0 10px 5px;
 }
 
-.logo span {
-  color: #60a5fa;
+.logo-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+  padding: 0 10px 25px;
 }
 
 .nav-btn {
   width: 100%;
-  border: 0;
+  border: none;
   background: transparent;
-  color: #cbd5e1;
+  color: #d1d5db;
   text-align: left;
-  padding: 13px 14px;
+  padding: 13px 12px;
+  border-radius: 8px;
   margin-bottom: 6px;
-  border-radius: 9px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
 }
 
-.nav-btn:hover,
-.nav-btn.active {
-  background: #1e293b;
+.nav-btn:hover {
+  background: #1f2937;
   color: white;
 }
 
-/* Main */
+.nav-btn.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* =========================
+   MAIN
+========================= */
+
 .main {
   flex: 1;
-  padding: 35px;
-  overflow-x: auto;
+  min-width: 0;
 }
+
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* =========================
+   TOOLS
+========================= */
 
 .tool {
   display: none;
-  max-width: 1200px;
 }
 
 .tool.active {
   display: block;
 }
 
-h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-}
-
-.subtitle {
-  color: #64748b;
-  margin-bottom: 25px;
-}
-
 .card {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 22px;
+  border-radius: 12px;
+  padding: 24px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
 
-textarea {
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.description {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+textarea,
+input[type="text"],
+input[type="url"] {
   width: 100%;
-  min-height: 220px;
-  resize: vertical;
-  padding: 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 9px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
   font-size: 14px;
   outline: none;
 }
 
+textarea {
+  min-height: 220px;
+  resize: vertical;
+  font-family: monospace;
+}
+
 textarea:focus,
 input:focus {
-  border-color: #3b82f6;
+  border-color: #2563eb;
 }
 
-.actions {
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
   display: flex;
   gap: 10px;
+  margin-top: 15px;
   flex-wrap: wrap;
-  margin-top: 14px;
 }
 
-button,
-.file-label {
-  border: 0;
-  border-radius: 8px;
-  padding: 11px 17px;
-  cursor: pointer;
-  font-weight: 600;
+button {
+  border: none;
+  border-radius: 7px;
+  padding: 11px 18px;
   font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .primary {
@@ -138,380 +195,809 @@ button,
 }
 
 .secondary {
-  background: #e2e8f0;
-  color: #172033;
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.secondary:hover {
+  background: #d1d5db;
+}
+
+.danger {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .file-label {
-  display: inline-block;
-  background: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  background: #e5e7eb;
+  color: #111827;
+  border-radius: 7px;
+  padding: 11px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-input[type="file"] {
+.file-label input {
   display: none;
 }
 
-/* Progress */
-.progress-wrap {
+/* =========================
+   STATS
+========================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-title {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 7px;
+}
+
+.stat-value {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-container {
   display: none;
   margin-top: 20px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 12px;
-  background: #e2e8f0;
-  border-radius: 20px;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 10px;
   overflow: hidden;
 }
 
-.progress-fill {
+.progress {
   width: 0%;
   height: 100%;
   background: #2563eb;
-  transition: width .2s;
+  transition: width 0.2s;
 }
 
 .progress-text {
   margin-top: 8px;
   font-size: 13px;
-  color: #64748b;
+  color: #6b7280;
 }
 
-/* Stats */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
+/* =========================
+   TABLE
+========================= */
 
-.stat {
-  background: white;
-  border: 1px solid #e2e8f0;
-  padding: 18px;
-  border-radius: 12px;
-}
-
-.stat-number {
-  font-size: 25px;
-  font-weight: 700;
-}
-
-.stat-label {
-  color: #64748b;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-/* Tables */
-.table-wrap {
+.table-wrapper {
   overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
-}
-
-th,
-td {
-  border-bottom: 1px solid #e2e8f0;
-  padding: 11px;
-  text-align: left;
-  font-size: 13px;
 }
 
 th {
-  background: #f8fafc;
-  font-weight: 700;
+  background: #f3f4f6;
+  text-align: left;
+  padding: 13px;
+  font-size: 13px;
 }
 
-td input {
-  width: 100%;
-  border: 1px solid #cbd5e1;
-  padding: 8px;
-  border-radius: 6px;
+td {
+  padding: 12px 13px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
 }
 
-/* Mobile */
-@media (max-width: 750px) {
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+}
+
+.dr {
+  font-weight: bold;
+}
+
+.error {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* =========================
+   HYPERLINK TABLE
+========================= */
+
+.hyperlink-table input {
+  min-width: 180px;
+}
+
+.hyperlink-table th,
+.hyperlink-table td {
+  white-space: nowrap;
+}
+
+.row-number {
+  width: 45px;
+  text-align: center;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
   .sidebar {
-    width: 200px;
-  }
-
-  .main {
-    padding: 20px;
+    width: 190px;
   }
 
   .stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
+
 }
+
+@media (max-width: 600px) {
+
+  .app {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .nav-btn {
+    width: auto;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .logo,
+  .logo-subtitle {
+    padding-left: 5px;
+  }
+
+  .header {
+    padding: 15px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+
   <aside class="sidebar">
-    <div class="logo">SEO<span>Tooly</span></div>
 
-    <button class="nav-btn active" onclick="showTool('drTool', this)">
-      📊 Ahrefs DR Checker
+    <div class="logo">
+      SEO Tooly
+    </div>
+
+    <div class="logo-subtitle">
+      SEO Tools
+    </div>
+
+    <button
+      class="nav-btn active"
+      onclick="showTool('drTool', this)">
+      📊 DR Checker
     </button>
 
-    <button class="nav-btn" onclick="showTool('httpTool', this)">
-      🌐 Bulk HTTP Code Checker
+    <button
+      class="nav-btn"
+      onclick="showTool('httpTool', this)">
+      🌐 Bulk HTTP Checker
     </button>
 
-    <button class="nav-btn" onclick="showTool('linkTool', this)">
+    <button
+      class="nav-btn"
+      onclick="showTool('hyperlinkTool', this)">
       🔗 Hyperlink Checker
     </button>
+
   </aside>
 
 
+  <!-- =========================
+       MAIN
+  ========================== -->
+
   <main class="main">
 
-    <!-- ================= DR CHECKER ================= -->
+    <div class="header">
 
-    <section id="drTool" class="tool active">
+      <h1 id="pageTitle">
+        DR Checker
+      </h1>
 
-      <h1>Ahrefs DR Checker</h1>
-      <div class="subtitle">
-        Check Domain Rating for domains in bulk.
-      </div>
+      <p id="pageSubtitle">
+        Bulk Domain Rating Checker
+      </p>
 
-      <div class="card">
+    </div>
 
-        <textarea
-          id="drInput"
-          placeholder="Enter domains, one per line...&#10;&#10;example.com&#10;example.org&#10;example.net"></textarea>
 
-        <div class="actions">
+    <div class="container">
 
-          <button class="primary" onclick="checkDR()">
-            Check DR
-          </button>
 
-          <label class="file-label">
-            Upload CSV
-            <input
-              type="file"
-              accept=".csv"
-              onchange="loadDRCSV(event)">
-          </label>
+      <!-- =====================================================
+           DR CHECKER
+      ====================================================== -->
 
-          <button class="secondary" onclick="downloadDRCSV()">
-            Download CSV
-          </button>
+      <section
+        id="drTool"
+        class="tool active">
 
-        </div>
+        <div class="card">
 
-        <div id="drProgress" class="progress-wrap">
+          <h2>
+            Check Domain Rating
+          </h2>
 
-          <div class="progress-bar">
-            <div id="drProgressFill" class="progress-fill"></div>
+          <p class="description">
+            Enter one domain per line.
+          </p>
+
+          <textarea
+            id="domains"
+            placeholder="example.com
+example.org
+example.net"></textarea>
+
+          <div class="buttons">
+
+            <button
+              class="primary"
+              onclick="checkDR()">
+              Check DR
+            </button>
+
+            <button
+              class="secondary"
+              onclick="clearDomains()">
+              Clear
+            </button>
+
           </div>
 
-          <div id="drProgressText" class="progress-text">
-            Starting...
-          </div>
+          <div
+            class="progress-container"
+            id="drProgressContainer">
 
-        </div>
+            <div class="progress-bar">
 
-      </div>
+              <div
+                class="progress"
+                id="drProgress">
+              </div>
 
-      <div class="stats">
+            </div>
 
-        <div class="stat">
-          <div id="drTotal" class="stat-number">0</div>
-          <div class="stat-label">Total Domains</div>
-        </div>
+            <div
+              class="progress-text"
+              id="drProgressText">
+              Preparing...
+            </div>
 
-        <div class="stat">
-          <div id="drChecked" class="stat-number">0</div>
-          <div class="stat-label">Checked</div>
-        </div>
-
-        <div class="stat">
-          <div id="drAverage" class="stat-number">-</div>
-          <div class="stat-label">Average DR</div>
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <div class="table-wrap">
-
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Domain</th>
-                <th>DR</th>
-              </tr>
-            </thead>
-
-            <tbody id="drResults">
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= HTTP CHECKER ================= -->
-
-    <section id="httpTool" class="tool">
-
-      <h1>Bulk HTTP Code Checker</h1>
-
-      <div class="subtitle">
-        Check HTTP status codes for websites in bulk.
-      </div>
-
-      <div class="card">
-
-        <textarea
-          id="httpInput"
-          placeholder="Enter URLs, one per line...&#10;&#10;https://example.com&#10;https://example.org"></textarea>
-
-        <div class="actions">
-
-          <button class="primary" onclick="checkHTTP()">
-            Check HTTP Codes
-          </button>
-
-          <label class="file-label">
-            Upload CSV
-            <input
-              type="file"
-              accept=".csv"
-              onchange="loadHTTPCSV(event)">
-          </label>
-
-          <button class="secondary" onclick="downloadHTTPCSV()">
-            Download CSV
-          </button>
-
-        </div>
-
-        <div id="httpProgress" class="progress-wrap">
-
-          <div class="progress-bar">
-            <div id="httpProgressFill" class="progress-fill"></div>
-          </div>
-
-          <div id="httpProgressText" class="progress-text">
-            Starting...
           </div>
 
         </div>
 
-      </div>
 
-      <div class="card">
+        <div class="stats">
 
-        <div class="table-wrap">
+          <div class="stat">
 
-          <table>
+            <div class="stat-title">
+              Total Domains
+            </div>
 
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>URL</th>
-                <th>HTTP Code</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+            <div
+              class="stat-value"
+              id="totalCount">
+              0
+            </div>
 
-            <tbody id="httpResults">
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </section>
+          </div>
 
 
-    <!-- ================= HYPERLINK CHECKER ================= -->
+          <div class="stat">
 
-    <section id="linkTool" class="tool">
+            <div class="stat-title">
+              Completed
+            </div>
 
-      <h1>Hyperlink Checker</h1>
+            <div
+              class="stat-value"
+              id="completedCount">
+              0
+            </div>
 
-      <div class="subtitle">
-        Check anchor text and the URL attached to each anchor.
-      </div>
+          </div>
 
-      <div class="card">
 
-        <div class="actions">
+          <div class="stat">
 
-          <button class="primary" onclick="addLinkRow()">
-            + Add Row
-          </button>
+            <div class="stat-title">
+              Errors
+            </div>
 
-          <label class="file-label">
-            Upload CSV
-            <input
-              type="file"
-              accept=".csv"
-              onchange="loadLinkCSV(event)">
-          </label>
+            <div
+              class="stat-value"
+              id="errorCount">
+              0
+            </div>
 
-          <button class="secondary" onclick="checkLinks()">
-            Check Links
-          </button>
+          </div>
 
-          <button class="secondary" onclick="downloadLinkCSV()">
-            Download CSV
-          </button>
 
-        </div>
+          <div class="stat">
 
-        <br>
+            <div class="stat-title">
+              Average DR
+            </div>
 
-        <div class="table-wrap">
+            <div
+              class="stat-value"
+              id="averageDR">
+              0
+            </div>
 
-          <table id="linkTable">
-
-            <thead>
-
-              <tr>
-                <th>Page URL</th>
-                <th>Anchor Text 1</th>
-                <th>Anchor Text 2</th>
-                <th>Client Link 1</th>
-                <th>Client Link 2</th>
-                <th>Result 1</th>
-                <th>Result 2</th>
-              </tr>
-
-            </thead>
-
-            <tbody id="linkResults">
-            </tbody>
-
-          </table>
+          </div>
 
         </div>
 
-      </div>
 
-    </section>
+        <div class="card">
+
+          <div
+            style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              margin-bottom:15px;
+              flex-wrap:wrap;
+              gap:10px;
+            ">
+
+            <h2 style="margin:0;">
+              Results
+            </h2>
+
+            <div
+              class="buttons"
+              style="margin:0;">
+
+              <button
+                class="secondary"
+                onclick="copyResults()">
+                Copy Results
+              </button>
+
+              <button
+                class="secondary"
+                onclick="downloadDRCSV()">
+                Download CSV
+              </button>
+
+              <button
+                class="danger"
+                onclick="clearResults()">
+                Clear Results
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+                  <th>Domain</th>
+                  <th>Domain Rating</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody id="resultsBody">
+
+                <tr>
+
+                  <td
+                    colspan="3"
+                    class="empty">
+
+                    No results yet.
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           HTTP CHECKER
+      ====================================================== -->
+
+      <section
+        id="httpTool"
+        class="tool">
+
+        <div class="card">
+
+          <h2>
+            Bulk HTTP Code Checker
+          </h2>
+
+          <p class="description">
+            Check HTTP status codes for up to 10,000 URLs.
+            Enter one URL per line or upload a CSV.
+          </p>
+
+          <textarea
+            id="httpInput"
+            placeholder="https://example.com
+https://example.org
+https://example.net"></textarea>
+
+
+          <div class="buttons">
+
+            <button
+              class="primary"
+              onclick="checkHTTP()">
+              Check HTTP Codes
+            </button>
+
+
+            <label class="file-label">
+
+              Upload CSV
+
+              <input
+                type="file"
+                accept=".csv"
+                onchange="loadHTTPCSV(event)">
+
+            </label>
+
+
+            <button
+              class="secondary"
+              onclick="clearHTTP()">
+              Clear
+            </button>
+
+          </div>
+
+
+          <div
+            class="progress-container"
+            id="httpProgress">
+
+            <div class="progress-bar">
+
+              <div
+                class="progress"
+                id="httpProgressFill">
+              </div>
+
+            </div>
+
+            <div
+              class="progress-text"
+              id="httpProgressText">
+              Preparing...
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div
+            style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              flex-wrap:wrap;
+              gap:10px;
+              margin-bottom:15px;
+            ">
+
+            <h2 style="margin:0;">
+              HTTP Results
+            </h2>
+
+            <div class="buttons" style="margin:0;">
+
+              <button
+                class="secondary"
+                onclick="downloadHTTPCSV()">
+                Download CSV
+              </button>
+
+              <button
+                class="danger"
+                onclick="clearHTTPResults()">
+                Clear Results
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+                  <th>URL</th>
+                  <th>HTTP Code</th>
+                  <th>Status</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="httpResults">
+
+                <tr>
+
+                  <td
+                    colspan="4"
+                    class="empty">
+
+                    No results yet.
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           HYPERLINK CHECKER
+      ====================================================== -->
+
+      <section
+        id="hyperlinkTool"
+        class="tool">
+
+        <div class="card">
+
+          <h2>
+            Hyperlink Checker
+          </h2>
+
+          <p class="description">
+            Enter page URLs, anchor texts and the client links
+            you expect those anchors to point to.
+          </p>
+
+
+          <div
+            class="table-wrapper">
+
+            <table class="hyperlink-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+                  <th>Page URL</th>
+                  <th>Anchor 1</th>
+                  <th>Client Link 1</th>
+                  <th>Anchor 2</th>
+                  <th>Client Link 2</th>
+                  <th>Action</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="hyperlinkRows">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <div class="buttons">
+
+            <button
+              class="secondary"
+              onclick="addHyperlinkRow()">
+              + Add Row
+            </button>
+
+            <button
+              class="secondary"
+              onclick="loadHyperlinkCSV(event)">
+              Upload CSV
+            </button>
+
+            <label class="file-label">
+
+              Upload CSV
+
+              <input
+                type="file"
+                accept=".csv"
+                onchange="loadHyperlinkCSV(event)">
+
+            </label>
+
+            <button
+              class="primary"
+              onclick="checkHyperlinks()">
+              Check Links
+            </button>
+
+            <button
+              class="secondary"
+              onclick="downloadHyperlinkCSV()">
+              Download CSV
+            </button>
+
+            <button
+              class="danger"
+              onclick="clearHyperlinkRows()">
+              Clear
+            </button>
+
+          </div>
+
+
+          <div
+            class="progress-container"
+            id="hyperlinkProgress">
+
+            <div class="progress-bar">
+
+              <div
+                class="progress"
+                id="hyperlinkProgressFill">
+              </div>
+
+            </div>
+
+            <div
+              class="progress-text"
+              id="hyperlinkProgressText">
+              Preparing...
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <h2>
+            Hyperlink Results
+          </h2>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+                  <th>Page URL</th>
+                  <th>Anchor</th>
+                  <th>Expected Link</th>
+                  <th>Found Link</th>
+                  <th>Result</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody id="hyperlinkResults">
+
+                <tr>
+
+                  <td
+                    colspan="6"
+                    class="empty">
+
+                    No results yet.
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </div>
 
   </main>
 
@@ -525,40 +1011,88 @@ td input {
 ========================================================= */
 
 const BACKEND_URL =
-  'https://script.google.com/macros/s/AKfycbwxgfWKCKcYgDL1iIEhwfls6Cta5giXz0NKmOW6r23zypkR0s4UZKNgNu54Y58XWXP0/exec';
+  "https://script.google.com/macros/s/AKfycbwxgfWKCKcYgDL1iIEhwfls6Cta5giXz0NKmOW6r23zypkR0s4UZKNgNu54Y58XWXP0/exec";
 
 
 /* =========================================================
-   SIDEBAR
+   TOOL NAVIGATION
 ========================================================= */
 
 function showTool(toolId, button) {
 
-  document.querySelectorAll('.tool')
-    .forEach(tool => tool.classList.remove('active'));
+  document.querySelectorAll(".tool").forEach(tool => {
+    tool.classList.remove("active");
+  });
 
-  document.querySelectorAll('.nav-btn')
-    .forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
 
-  document.getElementById(toolId)
-    .classList.add('active');
+  document.getElementById(toolId).classList.add("active");
 
-  button.classList.add('active');
+  button.classList.add("active");
+
+  const titles = {
+    drTool: [
+      "DR Checker",
+      "Bulk Domain Rating Checker"
+    ],
+
+    httpTool: [
+      "Bulk HTTP Checker",
+      "Check HTTP status codes in bulk"
+    ],
+
+    hyperlinkTool: [
+      "Hyperlink Checker",
+      "Check whether anchors point to the expected URLs"
+    ]
+  };
+
+  document.getElementById("pageTitle").textContent =
+    titles[toolId][0];
+
+  document.getElementById("pageSubtitle").textContent =
+    titles[toolId][1];
 }
 
 
 /* =========================================================
-   CSV PARSER
+   GENERAL HELPERS
 ========================================================= */
 
-function parseCSV(text) {
+function escapeHTML(value) {
 
-  return text
-    .split(/\r?\n/)
-    .map(row => row.trim())
-    .filter(Boolean)
-    .map(row => row.split(',')[0].trim());
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
+
+function downloadFile(content, filename) {
+
+  const blob = new Blob(
+    [content],
+    { type: "text/csv;charset=utf-8;" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
 }
 
 
@@ -566,177 +1100,351 @@ function parseCSV(text) {
    DR CHECKER
 ========================================================= */
 
-let drData = [];
+let results = [];
+
+
+function cleanDomain(domain) {
+
+  domain = String(domain || "").trim();
+
+  if (!domain) {
+    return "";
+  }
+
+  domain = domain
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "");
+
+  domain = domain.split("/")[0];
+  domain = domain.split("?")[0];
+  domain = domain.split("#")[0];
+
+  return domain.trim().toLowerCase();
+}
+
+
+function getDomains() {
+
+  const text =
+    document.getElementById("domains").value;
+
+  const domains =
+    text
+      .split(/\r?\n/)
+      .map(cleanDomain)
+      .filter(Boolean);
+
+  return [...new Set(domains)];
+}
 
 
 async function checkDR() {
 
-  const domains = document.getElementById('drInput')
-    .value
-    .split(/\r?\n/)
-    .map(x => x.trim())
-    .filter(Boolean);
+  const domains = getDomains();
 
   if (!domains.length) {
-    alert('Please enter at least one domain.');
+
+    alert("Please enter at least one domain.");
+
     return;
   }
 
-  if (domains.length > 10000) {
-    alert('Maximum 10,000 domains per query.');
-    return;
-  }
 
-  drData = [];
+  results = [];
 
-  document.getElementById('drTotal').textContent = domains.length;
-  document.getElementById('drChecked').textContent = '0';
-  document.getElementById('drAverage').textContent = '-';
+  updateDRStats();
 
-  const progress = document.getElementById('drProgress');
-  const fill = document.getElementById('drProgressFill');
-  const text = document.getElementById('drProgressText');
+  const progressContainer =
+    document.getElementById("drProgressContainer");
 
-  progress.style.display = 'block';
-  fill.style.width = '10%';
-  text.textContent = 'Sending domains to Ahrefs...';
+  progressContainer.style.display = "block";
+
+  setDRProgress(10, "Checking domains...");
+
 
   try {
 
-    const response = await fetch(BACKEND_URL, {
+    const response = await fetch(
+      BACKEND_URL,
+      {
+        method: "POST",
 
-      method: 'POST',
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
 
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
+        body: JSON.stringify({
+          domains: domains
+        })
+      }
+    );
 
-      body: JSON.stringify({
-        action: 'dr-check',
-        domains: domains
-      })
 
-    });
+    const data =
+      await response.json();
 
-    const data = await response.json();
 
-    if (!data.success) {
-      throw new Error(data.error || 'Unknown backend error.');
+    if (!data.results) {
+
+      throw new Error(
+        data.error ||
+        "Invalid server response."
+      );
     }
 
-    drData = data.results || [];
+
+    results = data.results;
 
     renderDRResults();
 
-    fill.style.width = '100%';
+    updateDRStats();
 
-    text.textContent =
-      `Completed ${drData.length} of ${domains.length} domains.`;
-
-    document.getElementById('drChecked').textContent =
-      drData.length;
-
-    const validDR = drData
-      .map(x => Number(x.dr))
-      .filter(x => Number.isFinite(x));
-
-    if (validDR.length) {
-
-      const average =
-        validDR.reduce((a, b) => a + b, 0) /
-        validDR.length;
-
-      document.getElementById('drAverage').textContent =
-        average.toFixed(1);
-
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-    text.textContent =
-      'Error: ' + error.message;
-
-    alert(
-      'DR Checker error:\n\n' +
-      error.message
+    setDRProgress(
+      100,
+      `Completed ${results.length} domains.`
     );
 
   }
 
+  catch (error) {
+
+    console.error(error);
+
+    setDRProgress(0, "Error");
+
+    alert(
+      "DR Checker error:\n\n" +
+      error.message
+    );
+  }
 }
 
 
 function renderDRResults() {
 
-  const tbody =
-    document.getElementById('drResults');
+  const body =
+    document.getElementById("resultsBody");
 
-  tbody.innerHTML = '';
+  body.innerHTML = "";
 
-  drData.forEach((item, index) => {
+
+  if (!results.length) {
+
+    body.innerHTML =
+      '<tr><td colspan="3" class="empty">No results.</td></tr>';
+
+    return;
+  }
+
+
+  results.forEach((item, index) => {
 
     const row =
-      document.createElement('tr');
+      document.createElement("tr");
+
+
+    const dr =
+      item.dr !== undefined &&
+      item.dr !== null &&
+      item.dr !== ""
+        ? item.dr
+        : "Error";
+
+
+    const drClass =
+      dr === "Error"
+        ? "error"
+        : "dr";
+
 
     row.innerHTML = `
+
       <td>${index + 1}</td>
-      <td>${escapeHTML(item.domain || '')}</td>
-      <td>${item.dr ?? '-'}</td>
+
+      <td>
+        ${escapeHTML(item.domain || "")}
+      </td>
+
+      <td class="${drClass}">
+        ${escapeHTML(String(dr))}
+      </td>
+
     `;
 
-    tbody.appendChild(row);
+
+    body.appendChild(row);
 
   });
-
 }
 
 
-function loadDRCSV(event) {
+function updateDRStats() {
 
-  const file = event.target.files[0];
+  const total =
+    results.length;
 
-  if (!file) return;
 
-  const reader = new FileReader();
+  const completed =
+    results.filter(
+      r =>
+        r.dr !== undefined &&
+        r.dr !== null &&
+        r.dr !== "" &&
+        r.dr !== "Error"
+    ).length;
 
-  reader.onload = function(e) {
 
-    const domains = parseCSV(e.target.result);
+  const errors =
+    total - completed;
 
-    document.getElementById('drInput').value =
-      domains.join('\n');
 
-  };
+  const values =
+    results
+      .map(r => Number(r.dr))
+      .filter(n => !isNaN(n));
 
-  reader.readAsText(file);
 
+  const average =
+    values.length
+      ? (
+          values.reduce(
+            (a, b) => a + b,
+            0
+          ) / values.length
+        ).toFixed(1)
+      : 0;
+
+
+  document.getElementById(
+    "totalCount"
+  ).textContent = total;
+
+
+  document.getElementById(
+    "completedCount"
+  ).textContent = completed;
+
+
+  document.getElementById(
+    "errorCount"
+  ).textContent = errors;
+
+
+  document.getElementById(
+    "averageDR"
+  ).textContent = average;
+}
+
+
+function setDRProgress(percent, text) {
+
+  document.getElementById(
+    "drProgress"
+  ).style.width =
+    percent + "%";
+
+
+  document.getElementById(
+    "drProgressText"
+  ).textContent =
+    text;
+}
+
+
+function clearDomains() {
+
+  document.getElementById(
+    "domains"
+  ).value = "";
+}
+
+
+function clearResults() {
+
+  results = [];
+
+  renderDRResults();
+
+  updateDRStats();
+
+  document.getElementById(
+    "drProgressContainer"
+  ).style.display = "none";
+}
+
+
+function copyResults() {
+
+  if (!results.length) {
+
+    alert(
+      "There are no results to copy."
+    );
+
+    return;
+  }
+
+
+  const text =
+    "Domain\tDomain Rating\n" +
+    results
+      .map(
+        r =>
+          `${r.domain}\t${r.dr}`
+      )
+      .join("\n");
+
+
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+
+      alert("Results copied.");
+
+    })
+    .catch(() => {
+
+      alert(
+        "Unable to copy results."
+      );
+
+    });
 }
 
 
 function downloadDRCSV() {
 
-  if (!drData.length) {
+  if (!results.length) {
 
-    alert('No DR results to download.');
+    alert(
+      "There are no results to download."
+    );
 
     return;
-
   }
 
-  let csv =
-    'Domain,DR\n';
 
-  drData.forEach(item => {
+  let csv =
+    "Domain,Domain Rating\n";
+
+
+  results.forEach(item => {
 
     csv +=
-      `"${item.domain || ''}","${item.dr ?? ''}"\n`;
+      `"${String(
+        item.domain || ""
+      ).replace(/"/g, '""')}","${String(
+        item.dr || ""
+      ).replace(/"/g, '""')}"\n`;
 
   });
 
-  downloadFile(csv, 'dr-results.csv');
 
+  downloadFile(
+    csv,
+    "ahrefs-dr-results.csv"
+  );
 }
 
 
@@ -747,122 +1455,247 @@ function downloadDRCSV() {
 let httpData = [];
 
 
-async function checkHTTP() {
+function getHTTPUrls() {
 
-  const urls = document.getElementById('httpInput')
+  return document
+    .getElementById("httpInput")
     .value
     .split(/\r?\n/)
     .map(x => x.trim())
     .filter(Boolean);
+}
+
+
+async function checkHTTP() {
+
+  const urls =
+    getHTTPUrls();
+
 
   if (!urls.length) {
-    alert('Please enter at least one URL.');
+
+    alert(
+      "Please enter at least one URL."
+    );
+
     return;
   }
+
 
   if (urls.length > 10000) {
-    alert('Maximum 10,000 URLs per query.');
+
+    alert(
+      "Maximum 10,000 URLs per query."
+    );
+
     return;
   }
 
-  const progress = document.getElementById('httpProgress');
-  const fill = document.getElementById('httpProgressFill');
-  const text = document.getElementById('httpProgressText');
 
-  progress.style.display = 'block';
-  fill.style.width = '10%';
-  text.textContent = 'Checking URLs...';
+  httpData = [];
+
+
+  const progress =
+    document.getElementById(
+      "httpProgress"
+    );
+
+  const fill =
+    document.getElementById(
+      "httpProgressFill"
+    );
+
+  const text =
+    document.getElementById(
+      "httpProgressText"
+    );
+
+
+  progress.style.display =
+    "block";
+
+
+  fill.style.width = "0%";
+
+
+  text.textContent =
+    `Starting ${urls.length} URLs...`;
+
+
+  /*
+    We send the URLs in small batches.
+    This keeps a 10,000 URL query manageable.
+  */
+
+  const batchSize = 25;
+
 
   try {
 
-    const response = await fetch(BACKEND_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        action: 'http-check',
-        urls: urls
-      })
-    });
+    for (
+      let start = 0;
+      start < urls.length;
+      start += batchSize
+    ) {
 
-    const data = await response.json();
+      const batch =
+        urls.slice(
+          start,
+          start + batchSize
+        );
 
-    if (!data.success) {
-      throw new Error(data.error || 'Unknown backend error.');
+
+      const response =
+        await fetch(
+          BACKEND_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify({
+              action: "http-check",
+              urls: batch
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!data.success) {
+
+        throw new Error(
+          data.error ||
+          "HTTP checker backend error."
+        );
+      }
+
+
+      if (Array.isArray(data.results)) {
+
+        httpData =
+          httpData.concat(
+            data.results
+          );
+
+      }
+
+
+      const completed =
+        Math.min(
+          start + batch.length,
+          urls.length
+        );
+
+
+      const percent =
+        Math.round(
+          (completed / urls.length) *
+          100
+        );
+
+
+      fill.style.width =
+        percent + "%";
+
+
+      text.textContent =
+        `Completed ${completed} of ${urls.length} URLs (${percent}%)`;
+
+
+      renderHTTPResults();
     }
 
-    httpData = data.results || [];
-
-    const tbody = document.getElementById('httpResults');
-    tbody.innerHTML = '';
-
-    httpData.forEach((item, index) => {
-
-      const row = document.createElement('tr');
-
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${escapeHTML(item.url || '')}</td>
-        <td>${item.code ?? '-'}</td>
-        <td>${escapeHTML(item.status || '')}</td>
-      `;
-
-      tbody.appendChild(row);
-    });
-
-    fill.style.width = '100%';
 
     text.textContent =
       `Completed ${httpData.length} of ${urls.length} URLs.`;
 
-  } catch (error) {
+
+  }
+
+  catch (error) {
 
     console.error(error);
 
     text.textContent =
-      'Error: ' + error.message;
+      "Error: " +
+      error.message;
+
 
     alert(
-      'HTTP Checker error:\n\n' +
+      "HTTP Checker error:\n\n" +
       error.message
     );
   }
 }
-  const urls =
-    document.getElementById('httpInput')
-      .value
-      .split(/\r?\n/)
-      .map(x => x.trim())
-      .filter(Boolean);
 
-  if (!urls.length) {
 
-    alert('Please enter at least one URL.');
+function renderHTTPResults() {
+
+  const tbody =
+    document.getElementById(
+      "httpResults"
+    );
+
+
+  tbody.innerHTML = "";
+
+
+  if (!httpData.length) {
+
+    tbody.innerHTML =
+      '<tr><td colspan="4" class="empty">No results yet.</td></tr>';
 
     return;
-
   }
 
-  if (urls.length > 10000) {
 
-    alert('Maximum 10,000 URLs per query.');
+  httpData.forEach(
+    (item, index) => {
 
-    return;
+      const row =
+        document.createElement("tr");
 
-  }
 
-  /*
-    Backend implementation will be connected here.
-    We intentionally keep this separate from the DR system
-    so the backend can process HTTP requests in controlled batches.
-  */
+      row.innerHTML = `
 
-  alert(
-    'HTTP Checker interface is ready. ' +
-    'Backend processing will be connected next.'
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            item.url || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            String(
+              item.code ?? "-"
+            )
+          )}
+        </td>
+
+        <td>
+          ${escapeHTML(
+            item.status || ""
+          )}
+        </td>
+
+      `;
+
+
+      tbody.appendChild(row);
+
+    }
   );
-
 }
 
 
@@ -871,22 +1704,70 @@ function loadHTTPCSV(event) {
   const file =
     event.target.files[0];
 
-  if (!file) return;
+
+  if (!file) {
+    return;
+  }
+
 
   const reader =
     new FileReader();
 
+
   reader.onload =
     function(e) {
 
-      const urls =
-        parseCSV(e.target.result);
+      const text =
+        e.target.result;
 
-      document.getElementById('httpInput')
-        .value =
-        urls.join('\n');
+
+      const lines =
+        text
+          .split(/\r?\n/)
+          .map(
+            line =>
+              line.trim()
+          )
+          .filter(Boolean);
+
+
+      /*
+        Remove the first line if it looks
+        like a CSV header.
+      */
+
+      if (
+        lines.length &&
+        /url/i.test(lines[0])
+      ) {
+
+        lines.shift();
+
+      }
+
+
+      const urls =
+        lines
+          .map(line => {
+
+            const firstColumn =
+              line.split(",")[0];
+
+            return firstColumn
+              .replace(/^["']|["']$/g, "")
+              .trim();
+
+          })
+          .filter(Boolean);
+
+
+      document.getElementById(
+        "httpInput"
+      ).value =
+        urls.join("\n");
 
     };
+
 
   reader.readAsText(file);
 
@@ -897,24 +1778,57 @@ function downloadHTTPCSV() {
 
   if (!httpData.length) {
 
-    alert('No HTTP results to download.');
+    alert(
+      "There are no HTTP results to download."
+    );
 
     return;
-
   }
 
+
   let csv =
-    'URL,HTTP Code,Status\n';
+    "URL,HTTP Code,Status\n";
+
 
   httpData.forEach(item => {
 
     csv +=
-      `"${item.url}","${item.code}","${item.status}"\n`;
+      `"${String(
+        item.url || ""
+      ).replace(/"/g, '""')}","${String(
+        item.code ?? ""
+      ).replace(/"/g, '""')}","${String(
+        item.status || ""
+      ).replace(/"/g, '""')}"\n`;
 
   });
 
-  downloadFile(csv, 'http-results.csv');
 
+  downloadFile(
+    csv,
+    "http-results.csv"
+  );
+}
+
+
+function clearHTTP() {
+
+  document.getElementById(
+    "httpInput"
+  ).value = "";
+
+}
+
+
+function clearHTTPResults() {
+
+  httpData = [];
+
+  renderHTTPResults();
+
+  document.getElementById(
+    "httpProgress"
+  ).style.display = "none";
 }
 
 
@@ -922,269 +1836,404 @@ function downloadHTTPCSV() {
    HYPERLINK CHECKER
 ========================================================= */
 
-let linkData = [];
+let hyperlinkResults = [];
 
 
-function addLinkRow(data = {}) {
+function createHyperlinkRow(
+  pageUrl = "",
+  anchor1 = "",
+  clientLink1 = "",
+  anchor2 = "",
+  clientLink2 = ""
+) {
 
   const tbody =
-    document.getElementById('linkResults');
+    document.getElementById(
+      "hyperlinkRows"
+    );
+
 
   const row =
-    document.createElement('tr');
+    document.createElement("tr");
+
 
   row.innerHTML = `
 
+    <td class="row-number">
+      ${tbody.children.length + 1}
+    </td>
+
     <td>
       <input
+        type="url"
         class="page-url"
-        value="${escapeAttribute(data.pageUrl || '')}"
-        placeholder="Page URL">
+        value="${escapeHTML(pageUrl)}"
+        placeholder="https://example.com/page">
     </td>
 
     <td>
       <input
-        class="anchor1"
-        value="${escapeAttribute(data.anchor1 || '')}"
-        placeholder="Anchor text 1">
+        type="text"
+        class="anchor-1"
+        value="${escapeHTML(anchor1)}"
+        placeholder="Anchor 1">
     </td>
 
     <td>
       <input
-        class="anchor2"
-        value="${escapeAttribute(data.anchor2 || '')}"
-        placeholder="Anchor text 2">
+        type="url"
+        class="client-link-1"
+        value="${escapeHTML(clientLink1)}"
+        placeholder="https://client.com">
     </td>
 
     <td>
       <input
-        class="client1"
-        value="${escapeAttribute(data.client1 || '')}"
-        placeholder="Client link 1">
+        type="text"
+        class="anchor-2"
+        value="${escapeHTML(anchor2)}"
+        placeholder="Anchor 2">
     </td>
 
     <td>
       <input
-        class="client2"
-        value="${escapeAttribute(data.client2 || '')}"
-        placeholder="Client link 2">
+        type="url"
+        class="client-link-2"
+        value="${escapeHTML(clientLink2)}"
+        placeholder="https://client.com">
     </td>
 
-    <td class="result1">
-      -
-    </td>
-
-    <td class="result2">
-      -
+    <td>
+      <button
+        class="danger"
+        onclick="removeHyperlinkRow(this)">
+        Remove
+      </button>
     </td>
 
   `;
+
 
   tbody.appendChild(row);
 
 }
 
 
-function collectLinkRows() {
+function addHyperlinkRow() {
+
+  createHyperlinkRow();
+
+}
+
+
+function removeHyperlinkRow(button) {
+
+  button
+    .closest("tr")
+    .remove();
+
+
+  renumberHyperlinkRows();
+}
+
+
+function renumberHyperlinkRows() {
 
   const rows =
     document.querySelectorAll(
-      '#linkResults tr'
+      "#hyperlinkRows tr"
     );
+
+
+  rows.forEach(
+    (row, index) => {
+
+      row.querySelector(
+        ".row-number"
+      ).textContent =
+        index + 1;
+
+    }
+  );
+}
+
+
+function getHyperlinkRows() {
+
+  const rows =
+    document.querySelectorAll(
+      "#hyperlinkRows tr"
+    );
+
 
   return Array.from(rows)
     .map(row => ({
 
       pageUrl:
-        row.querySelector('.page-url').value.trim(),
+        row.querySelector(
+          ".page-url"
+        ).value.trim(),
 
       anchor1:
-        row.querySelector('.anchor1').value.trim(),
+        row.querySelector(
+          ".anchor-1"
+        ).value.trim(),
+
+      clientLink1:
+        row.querySelector(
+          ".client-link-1"
+        ).value.trim(),
 
       anchor2:
-        row.querySelector('.anchor2').value.trim(),
+        row.querySelector(
+          ".anchor-2"
+        ).value.trim(),
 
-      client1:
-        row.querySelector('.client1').value.trim(),
+      clientLink2:
+        row.querySelector(
+          ".client-link-2"
+        ).value.trim()
 
-      client2:
-        row.querySelector('.client2').value.trim()
-
-    }));
-
+    }))
+    .filter(row => row.pageUrl);
 }
 
 
-function checkLinks() {
+async function checkHyperlinks() {
 
-  linkData =
-    collectLinkRows();
+  const rows =
+    getHyperlinkRows();
 
-  if (!linkData.length) {
 
-    alert('Add at least one row.');
+  if (!rows.length) {
+
+    alert(
+      "Please add at least one page URL."
+    );
 
     return;
-
   }
 
+
   /*
-    Backend hyperlink checking will be connected after
-    the backend HTTP/link-checking functions are added.
+    Backend for the hyperlink checker
+    will be added separately.
   */
 
   alert(
-    'Hyperlink Checker interface is ready. ' +
-    'Backend checking will be connected next.'
+    "Hyperlink Checker interface is ready.\n\n" +
+    "The backend checker will be connected next."
   );
-
 }
 
 
-function loadLinkCSV(event) {
+function loadHyperlinkCSV(event) {
 
   const file =
     event.target.files[0];
 
-  if (!file) return;
+
+  if (!file) {
+    return;
+  }
+
 
   const reader =
     new FileReader();
 
+
   reader.onload =
     function(e) {
 
+      const text =
+        e.target.result;
+
+
       const lines =
-        e.target.result
+        text
           .split(/\r?\n/)
           .filter(Boolean);
 
-      const tbody =
-        document.getElementById('linkResults');
 
-      tbody.innerHTML = '';
+      if (!lines.length) {
+        return;
+      }
+
+
+      const tbody =
+        document.getElementById(
+          "hyperlinkRows"
+        );
+
+
+      tbody.innerHTML = "";
+
 
       /*
-        Expected CSV:
-        Page URL,Anchor 1,Anchor 2,Client Link 1,Client Link 2
+        Expected CSV columns:
+
+        Page URL,
+        Anchor 1,
+        Client Link 1,
+        Anchor 2,
+        Client Link 2
       */
 
-      lines.forEach((line, index) => {
+      lines.forEach(
+        (line, index) => {
 
-        if (index === 0 &&
-            line.toLowerCase().includes('page url')) {
-          return;
+          if (
+            index === 0 &&
+            /page\s*url/i.test(line)
+          ) {
+            return;
+          }
+
+
+          const columns =
+            parseCSVLine(line);
+
+
+          createHyperlinkRow(
+            columns[0] || "",
+            columns[1] || "",
+            columns[2] || "",
+            columns[3] || "",
+            columns[4] || ""
+          );
+
         }
-
-        const cols =
-          line.split(',');
-
-        addLinkRow({
-
-          pageUrl: cols[0] || '',
-          anchor1: cols[1] || '',
-          anchor2: cols[2] || '',
-          client1: cols[3] || '',
-          client2: cols[4] || ''
-
-        });
-
-      });
+      );
 
     };
+
 
   reader.readAsText(file);
 
 }
 
 
-function downloadLinkCSV() {
+function parseCSVLine(line) {
 
-  linkData =
-    collectLinkRows();
+  const result = [];
 
-  if (!linkData.length) {
+  let current = "";
 
-    alert('No hyperlink data to download.');
+  let insideQuotes = false;
 
-    return;
+
+  for (
+    let i = 0;
+    i < line.length;
+    i++
+  ) {
+
+    const char =
+      line[i];
+
+
+    if (
+      char === '"' &&
+      line[i + 1] === '"'
+    ) {
+
+      current += '"';
+
+      i++;
+
+    }
+
+    else if (char === '"') {
+
+      insideQuotes =
+        !insideQuotes;
+
+    }
+
+    else if (
+      char === "," &&
+      !insideQuotes
+    ) {
+
+      result.push(
+        current.trim()
+      );
+
+      current = "";
+
+    }
+
+    else {
+
+      current += char;
+
+    }
 
   }
 
-  let csv =
-    'Page URL,Anchor Text 1,Anchor Text 2,Client Link 1,Client Link 2,Result 1,Result 2\n';
 
-  linkData.forEach(item => {
+  result.push(
+    current.trim()
+  );
+
+
+  return result;
+
+}
+
+
+function downloadHyperlinkCSV() {
+
+  const rows =
+    getHyperlinkRows();
+
+
+  if (!rows.length) {
+
+    alert(
+      "There are no hyperlink rows to download."
+    );
+
+    return;
+  }
+
+
+  let csv =
+    "Page URL,Anchor 1,Client Link 1,Anchor 2,Client Link 2\n";
+
+
+  rows.forEach(row => {
 
     csv +=
-      `"${item.pageUrl}","${item.anchor1}","${item.anchor2}","${item.client1}","${item.client2}","",""\n`;
+      `"${String(row.pageUrl).replace(/"/g, '""')}","${String(row.anchor1).replace(/"/g, '""')}","${String(row.clientLink1).replace(/"/g, '""')}","${String(row.anchor2).replace(/"/g, '""')}","${String(row.clientLink2).replace(/"/g, '""')}"\n`;
 
   });
 
+
   downloadFile(
     csv,
-    'hyperlink-results.csv'
+    "hyperlink-checker-input.csv"
   );
+}
 
+
+function clearHyperlinkRows() {
+
+  document.getElementById(
+    "hyperlinkRows"
+  ).innerHTML = "";
+
+  hyperlinkResults = [];
+
+  addHyperlinkRow();
 }
 
 
 /* =========================================================
-   UTILITIES
+   START WITH ONE HYPERLINK ROW
 ========================================================= */
 
-function downloadFile(content, filename) {
-
-  const blob =
-    new Blob([content], {
-      type: 'text/csv;charset=utf-8;'
-    });
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement('a');
-
-  a.href = url;
-  a.download = filename;
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-  URL.revokeObjectURL(url);
-
-}
-
-
-function escapeHTML(value) {
-
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-
-}
-
-
-function escapeAttribute(value) {
-
-  return escapeHTML(value);
-
-}
-
-
-/* =========================================================
-   INITIAL ROWS
-========================================================= */
-
-addLinkRow();
-addLinkRow();
+addHyperlinkRow();
 
 </script>
 
