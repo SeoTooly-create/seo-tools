@@ -749,6 +749,86 @@ let httpData = [];
 
 async function checkHTTP() {
 
+  const urls = document.getElementById('httpInput')
+    .value
+    .split(/\r?\n/)
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  if (!urls.length) {
+    alert('Please enter at least one URL.');
+    return;
+  }
+
+  if (urls.length > 10000) {
+    alert('Maximum 10,000 URLs per query.');
+    return;
+  }
+
+  const progress = document.getElementById('httpProgress');
+  const fill = document.getElementById('httpProgressFill');
+  const text = document.getElementById('httpProgressText');
+
+  progress.style.display = 'block';
+  fill.style.width = '10%';
+  text.textContent = 'Checking URLs...';
+
+  try {
+
+    const response = await fetch(BACKEND_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        action: 'http-check',
+        urls: urls
+      })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Unknown backend error.');
+    }
+
+    httpData = data.results || [];
+
+    const tbody = document.getElementById('httpResults');
+    tbody.innerHTML = '';
+
+    httpData.forEach((item, index) => {
+
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${escapeHTML(item.url || '')}</td>
+        <td>${item.code ?? '-'}</td>
+        <td>${escapeHTML(item.status || '')}</td>
+      `;
+
+      tbody.appendChild(row);
+    });
+
+    fill.style.width = '100%';
+
+    text.textContent =
+      `Completed ${httpData.length} of ${urls.length} URLs.`;
+
+  } catch (error) {
+
+    console.error(error);
+
+    text.textContent =
+      'Error: ' + error.message;
+
+    alert(
+      'HTTP Checker error:\n\n' +
+      error.message
+    );
+  }
+}
   const urls =
     document.getElementById('httpInput')
       .value
