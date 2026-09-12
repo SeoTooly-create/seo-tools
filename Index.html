@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Tooly</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #111827;
+  color: white;
+  padding: 24px 14px;
+  flex-shrink: 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 0 12px 28px;
+}
+
+.logo span {
+  color: #60a5fa;
+}
+
+.nav-btn {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  text-align: left;
+  padding: 13px 14px;
+  margin-bottom: 6px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: #1e293b;
+  color: white;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 35px;
+  overflow-x: auto;
+}
+
+.tool {
+  display: none;
+  max-width: 1200px;
+}
+
+.tool.active {
+  display: block;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #64748b;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  font-size: 14px;
+  outline: none;
+}
+
+textarea:focus,
+input:focus {
+  border-color: #3b82f6;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+button,
+.file-label {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 17px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+}
+
+.primary:hover {
+  background: #1d4ed8;
+}
+
+.secondary {
+  background: #e2e8f0;
+  color: #172033;
+}
+
+.file-label {
+  display: inline-block;
+  background: #e2e8f0;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Progress */
+.progress-wrap {
+  display: none;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #2563eb;
+  transition: width .2s;
+}
+
+.progress-text {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.stat-number {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 11px;
+  text-align: left;
+  font-size: 13px;
+}
+
+th {
+  background: #f8fafc;
+  font-weight: 700;
+}
+
+td input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* Mobile */
+@media (max-width: 750px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">SEO<span>Tooly</span></div>
+
+    <button class="nav-btn active" onclick="showTool('drTool', this)">
+      📊 Ahrefs DR Checker
+    </button>
+
+    <button class="nav-btn" onclick="showTool('httpTool', this)">
+      🌐 Bulk HTTP Code Checker
+    </button>
+
+    <button class="nav-btn" onclick="showTool('linkTool', this)">
+      🔗 Hyperlink Checker
+    </button>
+  </aside>
+
+
+  <main class="main">
+
+    <!-- ================= DR CHECKER ================= -->
+
+    <section id="drTool" class="tool active">
+
+      <h1>Ahrefs DR Checker</h1>
+      <div class="subtitle">
+        Check Domain Rating for domains in bulk.
+      </div>
+
+      <div class="card">
+
+        <textarea
+          id="drInput"
+          placeholder="Enter domains, one per line...&#10;&#10;example.com&#10;example.org&#10;example.net"></textarea>
+
+        <div class="actions">
+
+          <button class="primary" onclick="checkDR()">
+            Check DR
+          </button>
+
+          <label class="file-label">
+            Upload CSV
+            <input
+              type="file"
+              accept=".csv"
+              onchange="loadDRCSV(event)">
+          </label>
+
+          <button class="secondary" onclick="downloadDRCSV()">
+            Download CSV
+          </button>
+
+        </div>
+
+        <div id="drProgress" class="progress-wrap">
+
+          <div class="progress-bar">
+            <div id="drProgressFill" class="progress-fill"></div>
+          </div>
+
+          <div id="drProgressText" class="progress-text">
+            Starting...
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <div id="drTotal" class="stat-number">0</div>
+          <div class="stat-label">Total Domains</div>
+        </div>
+
+        <div class="stat">
+          <div id="drChecked" class="stat-number">0</div>
+          <div class="stat-label">Checked</div>
+        </div>
+
+        <div class="stat">
+          <div id="drAverage" class="stat-number">-</div>
+          <div class="stat-label">Average DR</div>
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="table-wrap">
+
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Domain</th>
+                <th>DR</th>
+              </tr>
+            </thead>
+
+            <tbody id="drResults">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= HTTP CHECKER ================= -->
+
+    <section id="httpTool" class="tool">
+
+      <h1>Bulk HTTP Code Checker</h1>
+
+      <div class="subtitle">
+        Check HTTP status codes for websites in bulk.
+      </div>
+
+      <div class="card">
+
+        <textarea
+          id="httpInput"
+          placeholder="Enter URLs, one per line...&#10;&#10;https://example.com&#10;https://example.org"></textarea>
+
+        <div class="actions">
+
+          <button class="primary" onclick="checkHTTP()">
+            Check HTTP Codes
+          </button>
+
+          <label class="file-label">
+            Upload CSV
+            <input
+              type="file"
+              accept=".csv"
+              onchange="loadHTTPCSV(event)">
+          </label>
+
+          <button class="secondary" onclick="downloadHTTPCSV()">
+            Download CSV
+          </button>
+
+        </div>
+
+        <div id="httpProgress" class="progress-wrap">
+
+          <div class="progress-bar">
+            <div id="httpProgressFill" class="progress-fill"></div>
+          </div>
+
+          <div id="httpProgressText" class="progress-text">
+            Starting...
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>URL</th>
+                <th>HTTP Code</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="httpResults">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= HYPERLINK CHECKER ================= -->
+
+    <section id="linkTool" class="tool">
+
+      <h1>Hyperlink Checker</h1>
+
+      <div class="subtitle">
+        Check anchor text and the URL attached to each anchor.
+      </div>
+
+      <div class="card">
+
+        <div class="actions">
+
+          <button class="primary" onclick="addLinkRow()">
+            + Add Row
+          </button>
+
+          <label class="file-label">
+            Upload CSV
+            <input
+              type="file"
+              accept=".csv"
+              onchange="loadLinkCSV(event)">
+          </label>
+
+          <button class="secondary" onclick="checkLinks()">
+            Check Links
+          </button>
+
+          <button class="secondary" onclick="downloadLinkCSV()">
+            Download CSV
+          </button>
+
+        </div>
+
+        <br>
+
+        <div class="table-wrap">
+
+          <table id="linkTable">
+
+            <thead>
+
+              <tr>
+                <th>Page URL</th>
+                <th>Anchor Text 1</th>
+                <th>Anchor Text 2</th>
+                <th>Client Link 1</th>
+                <th>Client Link 2</th>
+                <th>Result 1</th>
+                <th>Result 2</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="linkResults">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   BACKEND
+========================================================= */
+
+const BACKEND_URL =
+  'https://script.google.com/macros/s/AKfycbwxgfWKCKcYgDL1iIEhwfls6Cta5giXz0NKmOW6r23zypkR0s4UZKNgNu54Y58XWXP0/exec';
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function showTool(toolId, button) {
+
+  document.querySelectorAll('.tool')
+    .forEach(tool => tool.classList.remove('active'));
+
+  document.querySelectorAll('.nav-btn')
+    .forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(toolId)
+    .classList.add('active');
+
+  button.classList.add('active');
+}
+
+
+/* =========================================================
+   CSV PARSER
+========================================================= */
+
+function parseCSV(text) {
+
+  return text
+    .split(/\r?\n/)
+    .map(row => row.trim())
+    .filter(Boolean)
+    .map(row => row.split(',')[0].trim());
+
+}
+
+
+/* =========================================================
+   DR CHECKER
+========================================================= */
+
+let drData = [];
+
+
+async function checkDR() {
+
+  const domains = document.getElementById('drInput')
+    .value
+    .split(/\r?\n/)
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  if (!domains.length) {
+    alert('Please enter at least one domain.');
+    return;
+  }
+
+  if (domains.length > 10000) {
+    alert('Maximum 10,000 domains per query.');
+    return;
+  }
+
+  drData = [];
+
+  document.getElementById('drTotal').textContent = domains.length;
+  document.getElementById('drChecked').textContent = '0';
+  document.getElementById('drAverage').textContent = '-';
+
+  const progress = document.getElementById('drProgress');
+  const fill = document.getElementById('drProgressFill');
+  const text = document.getElementById('drProgressText');
+
+  progress.style.display = 'block';
+  fill.style.width = '10%';
+  text.textContent = 'Sending domains to Ahrefs...';
+
+  try {
+
+    const response = await fetch(BACKEND_URL, {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify({
+        action: 'dr-check',
+        domains: domains
+      })
+
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Unknown backend error.');
+    }
+
+    drData = data.results || [];
+
+    renderDRResults();
+
+    fill.style.width = '100%';
+
+    text.textContent =
+      `Completed ${drData.length} of ${domains.length} domains.`;
+
+    document.getElementById('drChecked').textContent =
+      drData.length;
+
+    const validDR = drData
+      .map(x => Number(x.dr))
+      .filter(x => Number.isFinite(x));
+
+    if (validDR.length) {
+
+      const average =
+        validDR.reduce((a, b) => a + b, 0) /
+        validDR.length;
+
+      document.getElementById('drAverage').textContent =
+        average.toFixed(1);
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    text.textContent =
+      'Error: ' + error.message;
+
+    alert(
+      'DR Checker error:\n\n' +
+      error.message
+    );
+
+  }
+
+}
+
+
+function renderDRResults() {
+
+  const tbody =
+    document.getElementById('drResults');
+
+  tbody.innerHTML = '';
+
+  drData.forEach((item, index) => {
+
+    const row =
+      document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${escapeHTML(item.domain || '')}</td>
+      <td>${item.dr ?? '-'}</td>
+    `;
+
+    tbody.appendChild(row);
+
+  });
+
+}
+
+
+function loadDRCSV(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    const domains = parseCSV(e.target.result);
+
+    document.getElementById('drInput').value =
+      domains.join('\n');
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+
+function downloadDRCSV() {
+
+  if (!drData.length) {
+
+    alert('No DR results to download.');
+
+    return;
+
+  }
+
+  let csv =
+    'Domain,DR\n';
+
+  drData.forEach(item => {
+
+    csv +=
+      `"${item.domain || ''}","${item.dr ?? ''}"\n`;
+
+  });
+
+  downloadFile(csv, 'dr-results.csv');
+
+}
+
+
+/* =========================================================
+   HTTP CHECKER
+========================================================= */
+
+let httpData = [];
+
+
+async function checkHTTP() {
+
+  const urls =
+    document.getElementById('httpInput')
+      .value
+      .split(/\r?\n/)
+      .map(x => x.trim())
+      .filter(Boolean);
+
+  if (!urls.length) {
+
+    alert('Please enter at least one URL.');
+
+    return;
+
+  }
+
+  if (urls.length > 10000) {
+
+    alert('Maximum 10,000 URLs per query.');
+
+    return;
+
+  }
+
+  /*
+    Backend implementation will be connected here.
+    We intentionally keep this separate from the DR system
+    so the backend can process HTTP requests in controlled batches.
+  */
+
+  alert(
+    'HTTP Checker interface is ready. ' +
+    'Backend processing will be connected next.'
+  );
+
+}
+
+
+function loadHTTPCSV(event) {
+
+  const file =
+    event.target.files[0];
+
+  if (!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e) {
+
+      const urls =
+        parseCSV(e.target.result);
+
+      document.getElementById('httpInput')
+        .value =
+        urls.join('\n');
+
+    };
+
+  reader.readAsText(file);
+
+}
+
+
+function downloadHTTPCSV() {
+
+  if (!httpData.length) {
+
+    alert('No HTTP results to download.');
+
+    return;
+
+  }
+
+  let csv =
+    'URL,HTTP Code,Status\n';
+
+  httpData.forEach(item => {
+
+    csv +=
+      `"${item.url}","${item.code}","${item.status}"\n`;
+
+  });
+
+  downloadFile(csv, 'http-results.csv');
+
+}
+
+
+/* =========================================================
+   HYPERLINK CHECKER
+========================================================= */
+
+let linkData = [];
+
+
+function addLinkRow(data = {}) {
+
+  const tbody =
+    document.getElementById('linkResults');
+
+  const row =
+    document.createElement('tr');
+
+  row.innerHTML = `
+
+    <td>
+      <input
+        class="page-url"
+        value="${escapeAttribute(data.pageUrl || '')}"
+        placeholder="Page URL">
+    </td>
+
+    <td>
+      <input
+        class="anchor1"
+        value="${escapeAttribute(data.anchor1 || '')}"
+        placeholder="Anchor text 1">
+    </td>
+
+    <td>
+      <input
+        class="anchor2"
+        value="${escapeAttribute(data.anchor2 || '')}"
+        placeholder="Anchor text 2">
+    </td>
+
+    <td>
+      <input
+        class="client1"
+        value="${escapeAttribute(data.client1 || '')}"
+        placeholder="Client link 1">
+    </td>
+
+    <td>
+      <input
+        class="client2"
+        value="${escapeAttribute(data.client2 || '')}"
+        placeholder="Client link 2">
+    </td>
+
+    <td class="result1">
+      -
+    </td>
+
+    <td class="result2">
+      -
+    </td>
+
+  `;
+
+  tbody.appendChild(row);
+
+}
+
+
+function collectLinkRows() {
+
+  const rows =
+    document.querySelectorAll(
+      '#linkResults tr'
+    );
+
+  return Array.from(rows)
+    .map(row => ({
+
+      pageUrl:
+        row.querySelector('.page-url').value.trim(),
+
+      anchor1:
+        row.querySelector('.anchor1').value.trim(),
+
+      anchor2:
+        row.querySelector('.anchor2').value.trim(),
+
+      client1:
+        row.querySelector('.client1').value.trim(),
+
+      client2:
+        row.querySelector('.client2').value.trim()
+
+    }));
+
+}
+
+
+function checkLinks() {
+
+  linkData =
+    collectLinkRows();
+
+  if (!linkData.length) {
+
+    alert('Add at least one row.');
+
+    return;
+
+  }
+
+  /*
+    Backend hyperlink checking will be connected after
+    the backend HTTP/link-checking functions are added.
+  */
+
+  alert(
+    'Hyperlink Checker interface is ready. ' +
+    'Backend checking will be connected next.'
+  );
+
+}
+
+
+function loadLinkCSV(event) {
+
+  const file =
+    event.target.files[0];
+
+  if (!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e) {
+
+      const lines =
+        e.target.result
+          .split(/\r?\n/)
+          .filter(Boolean);
+
+      const tbody =
+        document.getElementById('linkResults');
+
+      tbody.innerHTML = '';
+
+      /*
+        Expected CSV:
+        Page URL,Anchor 1,Anchor 2,Client Link 1,Client Link 2
+      */
+
+      lines.forEach((line, index) => {
+
+        if (index === 0 &&
+            line.toLowerCase().includes('page url')) {
+          return;
+        }
+
+        const cols =
+          line.split(',');
+
+        addLinkRow({
+
+          pageUrl: cols[0] || '',
+          anchor1: cols[1] || '',
+          anchor2: cols[2] || '',
+          client1: cols[3] || '',
+          client2: cols[4] || ''
+
+        });
+
+      });
+
+    };
+
+  reader.readAsText(file);
+
+}
+
+
+function downloadLinkCSV() {
+
+  linkData =
+    collectLinkRows();
+
+  if (!linkData.length) {
+
+    alert('No hyperlink data to download.');
+
+    return;
+
+  }
+
+  let csv =
+    'Page URL,Anchor Text 1,Anchor Text 2,Client Link 1,Client Link 2,Result 1,Result 2\n';
+
+  linkData.forEach(item => {
+
+    csv +=
+      `"${item.pageUrl}","${item.anchor1}","${item.anchor2}","${item.client1}","${item.client2}","",""\n`;
+
+  });
+
+  downloadFile(
+    csv,
+    'hyperlink-results.csv'
+  );
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function downloadFile(content, filename) {
+
+  const blob =
+    new Blob([content], {
+      type: 'text/csv;charset=utf-8;'
+    });
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement('a');
+
+  a.href = url;
+  a.download = filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHTML(value);
+
+}
+
+
+/* =========================================================
+   INITIAL ROWS
+========================================================= */
+
+addLinkRow();
+addLinkRow();
+
+</script>
+
+</body>
+</html>
