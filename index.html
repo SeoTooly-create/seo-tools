@@ -1847,146 +1847,74 @@ function getHyperlinkRows() {
 ```javascript
 async function checkHyperlinks() {
 
-  const rows =
-    getHyperlinkRows();
+  const rows = hyperlinkRows.map(row => ({
+    srNo: row.srNo || "",
+    pageUrl: row.pageUrl || "",
+    anchor1: row.anchor1 || "",
+    clientLink1: row.clientLink1 || "",
+    anchor2: row.anchor2 || "",
+    clientLink2: row.clientLink2 || ""
+  }));
 
   if (!rows.length) {
-
-    alert(
-      "Please add at least one page URL."
-    );
-
+    alert("Please add at least one row.");
     return;
-
   }
 
-  const progress =
-    document.getElementById(
-      "hyperlinkProgress"
-    );
-
-  const fill =
-    document.getElementById(
-      "hyperlinkProgressFill"
-    );
-
-  const text =
-    document.getElementById(
-      "hyperlinkProgressText"
-    );
-
-  progress.style.display =
-    "block";
-
-  fill.style.width =
-    "10%";
-
-  text.textContent =
-    "Checking hyperlinks...";
+  hyperlinkResults = [];
 
   try {
 
-    const response =
-      await fetch(
-        BACKEND_URL,
-        {
-          method: "POST",
+    const response = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify({
+        action: "hyperlink-check",
+        rows: rows
+      })
+    });
 
-          headers: {
-            "Content-Type":
-              "text/plain;charset=utf-8"
-          },
-
-          body: JSON.stringify({
-            action: "hyperlink-check",
-            rows: rows
-          })
-
-        }
-      );
-
-    const data =
-      await response.json();
+    const data = await response.json();
 
     if (!data.success) {
-
-      throw new Error(
-        data.error ||
-        "Unknown backend error."
-      );
-
+      throw new Error(data.error || "Hyperlink check failed.");
     }
 
-    /*
-      CURRENT APPS SCRIPT RETURNS:
+    hyperlinkResults = (data.results || []).map(item => ({
 
-      {
-        srNo,
-        pageUrl,
-        anchor1,
-        result1,
-        anchor2,
-        result2
-      }
+      srNo: item.srNo || "",
 
-      Therefore we use those fields directly.
-    */
+      pageUrl: item.pageUrl || "",
 
-    hyperlinkResults =
-      (data.results || []).map(item => {
+      anchor1: item.anchor1 || "",
 
-        return {
+      result1: convertHyperlinkResult(
+        item.result1 || ""
+      ),
 
-          srNo:
-            item.srNo || "",
+      anchor2: item.anchor2 || "",
 
-          pageUrl:
-            item.pageUrl || "",
+      result2: convertHyperlinkResult(
+        item.result2 || ""
+      )
 
-          anchor1:
-            item.anchor1 || "",
-
-          result1:
-            convertHyperlinkResult(
-              item.result1
-            ),
-
-          anchor2:
-            item.anchor2 || "",
-
-          result2:
-            convertHyperlinkResult(
-              item.result2
-            )
-
-        };
-
-      });
+    }));
 
     renderHyperlinkResults();
-
-    fill.style.width =
-      "100%";
-
-    text.textContent =
-      `Completed ${hyperlinkResults.length} page(s).`;
 
   } catch (error) {
 
     console.error(error);
 
-    text.textContent =
-      "Error: " + error.message;
-
     alert(
-      "Hyperlink Checker error:\n\n" +
+      "Hyperlink checker error: " +
       error.message
     );
 
   }
-
 }
-```
 
 /* =========================================================
    CONVERT BACKEND RESULT
