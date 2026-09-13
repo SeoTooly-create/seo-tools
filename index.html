@@ -1844,17 +1844,9 @@ function getHyperlinkRows() {
    HYPERLINK CHECK
 ========================================================= */
 
-```javascript
 async function checkHyperlinks() {
 
-  const rows = hyperlinkRows.map(row => ({
-    srNo: row.srNo || "",
-    pageUrl: row.pageUrl || "",
-    anchor1: row.anchor1 || "",
-    clientLink1: row.clientLink1 || "",
-    anchor2: row.anchor2 || "",
-    clientLink2: row.clientLink2 || ""
-  }));
+  const rows = getHyperlinkRows();
 
   if (!rows.length) {
     alert("Please add at least one row.");
